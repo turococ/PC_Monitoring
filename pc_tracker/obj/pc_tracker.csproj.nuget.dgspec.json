@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ilafilaev\\Desktop\\pc_tracker\\pc_tracker\\pc_tracker.csproj": {}
+    "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\pc_tracker\\pc_tracker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ilafilaev\\Desktop\\pc_tracker\\pc_tracker\\pc_tracker.csproj": {
+    "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\pc_tracker\\pc_tracker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ilafilaev\\Desktop\\pc_tracker\\pc_tracker\\pc_tracker.csproj",
+        "projectUniqueName": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\pc_tracker\\pc_tracker.csproj",
         "projectName": "pc_tracker",
-        "projectPath": "C:\\Users\\ilafilaev\\Desktop\\pc_tracker\\pc_tracker\\pc_tracker.csproj",
-        "packagesPath": "C:\\Users\\ilafilaev\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ilafilaev\\Desktop\\pc_tracker\\pc_tracker\\obj\\",
+        "projectPath": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\pc_tracker\\pc_tracker.csproj",
+        "packagesPath": "C:\\Users\\turococ\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\pc_tracker\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ilafilaev\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\turococ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,6 +50,10 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "dependencies": {
+            "LibreHardwareMonitorLib": {
+              "target": "Package",
+              "version": "[0.9.5, )"
+            },
             "Spectre.Console": {
               "target": "Package",
               "version": "[0.54.0, )"
@@ -62,6 +70,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.linux-x64",
+              "version": "[10.0.2, 10.0.2]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.linux-x64",
+              "version": "[10.0.2, 10.0.2]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.linux-x64",
+              "version": "[10.0.2, 10.0.2]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -342,6 +364,11 @@
             "System.Xml.XPath": "(,4.3.32767]",
             "System.Xml.XPath.XDocument": "(,5.0.32767]"
           }
+        }
+      },
+      "runtimes": {
+        "linux-x64": {
+          "#import": []
         }
       }
     }
