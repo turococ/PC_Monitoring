@@ -1,0 +1,17 @@
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\bin\Debug\net10.0\pc_tracker.exe
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\bin\Debug\net10.0\pc_tracker.deps.json
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\bin\Debug\net10.0\pc_tracker.runtimeconfig.json
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\bin\Debug\net10.0\pc_tracker.dll
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\bin\Debug\net10.0\pc_tracker.pdb
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\bin\Debug\net10.0\Spectre.Console.dll
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\obj\Debug\net10.0\pc_tracker.csproj.AssemblyReference.cache
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\obj\Debug\net10.0\pc_tracker.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\obj\Debug\net10.0\pc_tracker.AssemblyInfoInputs.cache
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\obj\Debug\net10.0\pc_tracker.AssemblyInfo.cs
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\obj\Debug\net10.0\pc_tracker.csproj.CoreCompileInputs.cache
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\obj\Debug\net10.0\pc_tracker.csproj.Up2Date
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\obj\Debug\net10.0\pc_tracker.dll
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\obj\Debug\net10.0\refint\pc_tracker.dll
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\obj\Debug\net10.0\pc_tracker.pdb
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\obj\Debug\net10.0\pc_tracker.genruntimeconfig.cache
+C:\Users\ilafilaev\Desktop\pc_tracker\pc_tracker\obj\Debug\net10.0\ref\pc_tracker.dll
