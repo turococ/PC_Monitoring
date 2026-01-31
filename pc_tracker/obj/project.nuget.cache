@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "C8WTe4jkgzU=",
+  "dgSpecHash": "2Sb3VvMpWyo=",
   "success": true,
   "projectFilePath": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\pc_tracker\\pc_tracker.csproj",
   "expectedPackageFiles": [
@@ -31,10 +31,7 @@
     "C:\\Users\\turococ\\.nuget\\packages\\system.codedom\\10.0.1\\system.codedom.10.0.1.nupkg.sha512",
     "C:\\Users\\turococ\\.nuget\\packages\\system.io.filesystem.accesscontrol\\5.0.0\\system.io.filesystem.accesscontrol.5.0.0.nupkg.sha512",
     "C:\\Users\\turococ\\.nuget\\packages\\system.io.ports\\10.0.1\\system.io.ports.10.0.1.nupkg.sha512",
-    "C:\\Users\\turococ\\.nuget\\packages\\system.management\\10.0.1\\system.management.10.0.1.nupkg.sha512",
-    "C:\\Users\\turococ\\.nuget\\packages\\microsoft.netcore.app.runtime.linux-x64\\10.0.2\\microsoft.netcore.app.runtime.linux-x64.10.0.2.nupkg.sha512",
-    "C:\\Users\\turococ\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.linux-x64\\10.0.2\\microsoft.aspnetcore.app.runtime.linux-x64.10.0.2.nupkg.sha512",
-    "C:\\Users\\turococ\\.nuget\\packages\\microsoft.netcore.app.host.linux-x64\\10.0.2\\microsoft.netcore.app.host.linux-x64.10.0.2.nupkg.sha512"
+    "C:\\Users\\turococ\\.nuget\\packages\\system.management\\10.0.1\\system.management.10.0.1.nupkg.sha512"
   ],
   "logs": []
 }
