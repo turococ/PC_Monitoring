@@ -21,7 +21,6 @@ public class PcInfoRenderer
             .Border(BoxBorder.Rounded);
 
         var outerPanel = new Panel(innerPanel)
-            .Header("[bold] Your PC [/]")
             .Border(BoxBorder.Heavy);
 
         AnsiConsole.WriteLine();

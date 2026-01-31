@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{42F4623C-683E-5805-D58B-D084D8EAFCA7}|pc_tracker\\pc_tracker.csproj|solutionrelative:pc_tracker\\ui\\pcinforenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{42F4623C-683E-5805-D58B-D084D8EAFCA7}|pc_tracker\\pc_tracker.csproj|c:\\users\\turococ\\documents\\github\\pc_monitoring\\pc_tracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{42F4623C-683E-5805-D58B-D084D8EAFCA7}|pc_tracker\\pc_tracker.csproj|solutionrelative:pc_tracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{42F4623C-683E-5805-D58B-D084D8EAFCA7}|pc_tracker\\pc_tracker.csproj|c:\\users\\turococ\\documents\\github\\pc_monitoring\\pc_tracker\\hardware\\pcspecs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{42F4623C-683E-5805-D58B-D084D8EAFCA7}|pc_tracker\\pc_tracker.csproj|solutionrelative:pc_tracker\\hardware\\pcspecs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{42F4623C-683E-5805-D58B-D084D8EAFCA7}|pc_tracker\\pc_tracker.csproj|c:\\users\\turococ\\documents\\github\\pc_monitoring\\pc_tracker\\hardware\\hardwarereader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{42F4623C-683E-5805-D58B-D084D8EAFCA7}|pc_tracker\\pc_tracker.csproj|solutionrelative:pc_tracker\\hardware\\hardwarereader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{42F4623C-683E-5805-D58B-D084D8EAFCA7}|pc_tracker\\pc_tracker.csproj|c:\\users\\turococ\\documents\\github\\pc_monitoring\\pc_tracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{42F4623C-683E-5805-D58B-D084D8EAFCA7}|pc_tracker\\pc_tracker.csproj|solutionrelative:pc_tracker\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,15 +26,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{c6f34f0d-7ae5-4f3a-be61-fe0c21ae9eb8}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\pc_tracker\\Program.cs",
               "RelativeDocumentMoniker": "pc_tracker\\Program.cs",
@@ -47,7 +43,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "HardwareReader.cs",
               "DocumentMoniker": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\pc_tracker\\Hardware\\HardwareReader.cs",
               "RelativeDocumentMoniker": "pc_tracker\\Hardware\\HardwareReader.cs",
@@ -60,7 +56,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "PcSpecs.cs",
               "DocumentMoniker": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\pc_tracker\\Hardware\\PcSpecs.cs",
               "RelativeDocumentMoniker": "pc_tracker\\Hardware\\PcSpecs.cs",
@@ -79,7 +75,7 @@
               "RelativeDocumentMoniker": "pc_tracker\\UI\\PcInfoRenderer.cs",
               "ToolTip": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\pc_tracker\\UI\\PcInfoRenderer.cs",
               "RelativeToolTip": "pc_tracker\\UI\\PcInfoRenderer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-31T10:00:53.725Z",
               "EditorCaption": ""
