@@ -1,4 +1,5 @@
 using LibreHardwareMonitor.Hardware;
+using System.Management;
 
 namespace HardwareMonitor.Hardware;
 
@@ -9,12 +10,10 @@ public class HardwareReader
         var computer = CreateComputer();
         computer.Open();
 
-        string MotherBoard = "Unknown";
+        string motherBoard = "Unknown";
         string cpu = "Unknown";
         string gpu = "Unknown";
         string ram = "Unknown";
-        string ssd = "Unknown";
-        string hdd = "Unknown";
 
         foreach (var hardware in computer.Hardware)
         {
@@ -22,6 +21,10 @@ public class HardwareReader
 
             switch (hardware.HardwareType)
             {
+                case HardwareType.Motherboard:
+                    motherBoard = hardware.Name;
+                    break;
+
                 case HardwareType.Cpu:
                     cpu = hardware.Name;
                     break;
@@ -35,16 +38,16 @@ public class HardwareReader
                 case HardwareType.Memory:
                     ram = ReadRam(hardware);
                     break;
-
-                case HardwareType.Storage:
-                    ssd = ReadSSD(hardware);
-                    //hdd = ReadHDD(hardware);
-                    break;
             }
         }
 
-        return new PcSpecs(MotherBoard, cpu, gpu, ram, ssd, hdd);
+        computer.Close();
+
+        var disks = ReadDisk();
+
+        return new PcSpecs(motherBoard, cpu, gpu, ram, disks);
     }
+
 
     private static Computer CreateComputer() => new()
     {
@@ -78,26 +81,18 @@ public class HardwareReader
             ? $"{Math.Round(total)} GB"
             : "Unknown";
     }
-
-    private static string ReadSSD(IHardware storage)
+    private static List<string> ReadDisk()
     {
-        float total = 0;
+        var disks = new List<string>();
+        var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
 
-        storage.Update();
-
-        foreach (var sensor in storage.Sensors)
+        foreach (ManagementObject disk in searcher.Get())
         {
-            if (sensor.SensorType != SensorType.Data || !sensor.Value.HasValue)
-                continue;
-
-            if (sensor.Name.Contains("Total", StringComparison.OrdinalIgnoreCase))
-            {
-                total = sensor.Value.Value;
-                break;
-            }
+            string name = disk["Model"]?.ToString() ?? "Unknown";
+            ulong size = (ulong)(disk["Size"] ?? 0);
+            disks.Add($"{name}: {Math.Round(size / 1024.0 / 1024.0 / 1024.0, 2)} GB");
         }
 
-        return total > 0
-            ? $"{Math.Round(total)} GB" : "Unknown";
+        return disks;
     }
 }

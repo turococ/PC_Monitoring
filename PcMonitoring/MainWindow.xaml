@@ -78,8 +78,27 @@
                     <TextBlock Text="{Binding Cpu}"         Foreground="White" FontSize="14"/>
                     <TextBlock Text="{Binding Gpu}"         Foreground="White" FontSize="14"/>
                     <TextBlock Text="{Binding Ram}"         Foreground="White" FontSize="14"/>
-                    <TextBlock Text="{Binding SSD}"         Foreground="White" FontSize="14"/>
-                    <TextBlock Text="{Binding HDD}"         Foreground="White" FontSize="14"/>
+                    <TextBlock 
+                        Text="Disks:" 
+                        Foreground="White" 
+                        FontSize="16"
+                        Margin="0 10 0 5"/>
+
+                    <ListBox 
+                        ItemsSource="{Binding Disks}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="White"> 
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock 
+                                    Text="{Binding}" 
+                                    Foreground="White"
+                                    FontSize="14"/> 
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </StackPanel>
             </Grid>
         </StackPanel>

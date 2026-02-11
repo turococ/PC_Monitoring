@@ -5,6 +5,5 @@ public record PcSpecs(
     string Cpu,
     string Gpu,
     string Ram,
-    string SSD,
-    string HDD
+    IReadOnlyList<string> Disks
 );

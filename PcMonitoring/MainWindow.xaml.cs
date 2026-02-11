@@ -1,5 +1,4 @@
 ﻿using HardwareMonitor.Hardware;
-using PcMonitoring.UI;
 using System.Windows;
 using System.Windows.Input;
 
