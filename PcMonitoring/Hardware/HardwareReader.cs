@@ -1,53 +1,34 @@
 using LibreHardwareMonitor.Hardware;
 using System.Management;
+using System.Collections.Generic;
 
 namespace HardwareMonitor.Hardware;
 
-public class HardwareReader
+public class HardwareReader : IDisposable
 {
-    public PcSpecs ReadPcSpec()
+    private readonly Computer _computer;
+    private readonly Visitor _visitor = new();
+
+    public HardwareReader()
     {
-        var computer = CreateComputer();
-        computer.Open();
-
-        string motherBoard = "Unknown";
-        string cpu = "Unknown";
-        string gpu = "Unknown";
-        string ram = "Unknown";
-
-        foreach (var hardware in computer.Hardware)
-        {
-            hardware.Update();
-
-            switch (hardware.HardwareType)
-            {
-                case HardwareType.Motherboard:
-                    motherBoard = hardware.Name;
-                    break;
-
-                case HardwareType.Cpu:
-                    cpu = hardware.Name;
-                    break;
-
-                case HardwareType.GpuNvidia:
-                case HardwareType.GpuAmd:
-                case HardwareType.GpuIntel:
-                    gpu = hardware.Name;
-                    break;
-
-                case HardwareType.Memory:
-                    ram = ReadRam(hardware);
-                    break;
-            }
-        }
-
-        computer.Close();
-
-        var disks = ReadDisk();
-
-        return new PcSpecs(motherBoard, cpu, gpu, ram, disks);
+        _computer = CreateComputer();
+        _computer.Open();
+        _computer.Accept(_visitor);
     }
 
+    public PcSpecs ReadPcSpec()
+    {
+        _computer.Traverse(_visitor);
+        var info = _visitor.Info;
+        var disks = ReadDisks();
+        return new PcSpecs(info.Motherboard, info.Cpu, info.Gpu, info.RamTotal, disks);
+    }
+
+    public HardwareMetrics GetCurrentMetrics()
+    {
+        _computer.Traverse(_visitor);
+        return _visitor.Metrics;
+    }
 
     private static Computer CreateComputer() => new()
     {
@@ -55,44 +36,29 @@ public class HardwareReader
         IsCpuEnabled = true,
         IsGpuEnabled = true,
         IsMemoryEnabled = true,
-        IsStorageEnabled = true
+        IsStorageEnabled = true,
+        IsControllerEnabled = false,
+        IsNetworkEnabled = false
     };
 
-    private static string ReadRam(IHardware memory)
-    {
-        float used = 0;
-        float available = 0;
-
-        foreach (var sensor in memory.Sensors)
-        {
-            if (sensor.SensorType != SensorType.Data || !sensor.Value.HasValue)
-                continue;
-
-            if (sensor.Name == "Memory Used")
-                used = sensor.Value.Value;
-
-            if (sensor.Name == "Memory Available")
-                available = sensor.Value.Value;
-        }
-
-        var total = used + available;
-
-        return total > 0
-            ? $"{Math.Round(total)} GB"
-            : "Unknown";
-    }
-    private static List<string> ReadDisk()
+    private static List<string> ReadDisks()
     {
         var disks = new List<string>();
-        var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
-
-        foreach (ManagementObject disk in searcher.Get())
+        try
         {
-            string name = disk["Model"]?.ToString() ?? "Unknown";
-            ulong size = (ulong)(disk["Size"] ?? 0);
-            disks.Add($"{name}: {Math.Round(size / 1024.0 / 1024.0 / 1024.0, 2)} GB");
+            var searcher = new System.Management.ManagementObjectSearcher(
+                "SELECT Model, Size FROM Win32_DiskDrive");
+            foreach (System.Management.ManagementObject disk in searcher.Get())
+            {
+                var name = disk["Model"]?.ToString() ?? "Unknown";
+                var size = (ulong)(disk["Size"] ?? 0);
+                var gb = (float)Math.Round(size / 1024.0 / 1024.0 / 1024.0, 1);
+                disks.Add($"{name} — {gb} GB");
+            }
         }
-
+        catch { disks.Add("Не удалось получить информацию о дисках"); }
         return disks;
     }
+
+    public void Dispose() => _computer?.Close();
 }

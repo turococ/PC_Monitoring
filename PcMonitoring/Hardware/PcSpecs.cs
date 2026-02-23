@@ -1,9 +1,9 @@
 ﻿namespace HardwareMonitor.Hardware;
 
 public record PcSpecs(
-    string MotherBoard,
+    string Motherboard,
     string Cpu,
     string Gpu,
-    string Ram,
+    string RamTotal,
     IReadOnlyList<string> Disks
 );
