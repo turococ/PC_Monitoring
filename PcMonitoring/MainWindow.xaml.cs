@@ -1,19 +1,22 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using PcMonitoring.ViewModels;
+using System.Windows.Threading;
 
 namespace PcMonitoring
 {
     public partial class MainWindow : Window
     {
+        DispatcherTimer timer = new DispatcherTimer();
         private MainViewModel? _viewModel;
 
         public MainWindow()
         {
             InitializeComponent();
+
             _viewModel = new MainViewModel();
             DataContext = _viewModel;
+
             ShowWelcome();
         }
 
@@ -36,7 +39,7 @@ namespace PcMonitoring
         private void Specs_Click(object sender, RoutedEventArgs e) => ShowSpecs();
 
         private void Settings_Click(object sender, RoutedEventArgs e) =>
-            MessageBox.Show("⚙️ Настройки в разработке", "PC Monitoring PRO",
+            MessageBox.Show("в разработке", "PC Monitoring PRO",
                            MessageBoxButton.OK, MessageBoxImage.Information);
 
         private void ShowWelcome()
@@ -62,6 +65,11 @@ namespace PcMonitoring
             WelcomeScreen.Visibility = Visibility.Collapsed;
             MonitoringScreen.Visibility = Visibility.Collapsed;
             SpecsScreen.Visibility = Visibility.Collapsed;
+        }
+
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }

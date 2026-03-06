@@ -52,39 +52,88 @@
                     CornerRadius="12,0,0,12"
                     Padding="10">
                 <StackPanel>
-                    <Button Content="✕" Width="32" Height="32"
+                    <TextBlock Text="МЕНЮ" 
+                               Foreground="#888" 
+                               FontSize="12" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,15"/>
+                    <Button Content="Мониторинг" Style="{StaticResource NavButton}" Click="Monitoring_Click"/>
+                    <Button Content="Комплектующие" Style="{StaticResource NavButton}" Click="Specs_Click"/>
+                    <Button Content="Настройки" Style="{StaticResource NavButton}" Click="Settings_Click"/>
+                </StackPanel>
+            </Border>
+
+            <Grid Grid.Column="1" Margin="1">
+                <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right"
-                            Background="Transparent" Foreground="White"
-                            BorderThickness="0" Cursor="Hand"
-                            Click="Close_Click" Margin="0,0,0,10">
+                            VerticalAlignment="Top"
+                            Margin="0,5,5,0"
+                            Panel.ZIndex="10">
+
+                    <Button Content="—"
+                            Width="24"
+                            Height="24"
+                            FontSize="12"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="Minimize_Click">
+
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border x:Name="border" Background="{TemplateBinding Background}" 
-                                        CornerRadius="5" BorderThickness="{TemplateBinding BorderThickness}">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border x:Name="border"
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="4">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
                                 </Border>
+
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter TargetName="border" Property="Background" Value="#C42B1C"/>
+                                        <Setter TargetName="border"
+                                                Property="Background"
+                                                Value="#3A3A3A"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+
+                    <Button Content="✕"
+                            Width="24"
+                            Height="24"
+                            FontSize="12"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="Close_Click">
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border"
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="4">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border"
+                                                Property="Background"
+                                                Value="#C42B1C"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-
-                    <TextBlock Text="МЕНЮ" Foreground="#888" FontSize="12" 
-                               FontWeight="Bold" Margin="0,0,0,15"/>
-
-                    <Button Content="📊 Мониторинг" Style="{StaticResource NavButton}" Click="Monitoring_Click"/>
-                    <Button Content="💻 Комплектующие" Style="{StaticResource NavButton}" Click="Specs_Click"/>
-                    <Button Content="⚙️ Настройки" Style="{StaticResource NavButton}" Click="Settings_Click"/>
                 </StackPanel>
-            </Border>
-
-            <Grid Grid.Column="1" Margin="10">
-
+                
                 <StackPanel x:Name="WelcomeScreen" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock Text="🎉 Добро пожаловать в PC Monitor PRO"
+                    <TextBlock Text="Добро пожаловать в PC Monitor PRO"
                                Foreground="White" FontSize="24" FontWeight="Bold"
                                HorizontalAlignment="Center" Margin="0,0,0,20"/>
                     <TextBlock Text="Выберите раздел в меню слева, чтобы начать" 
@@ -92,42 +141,71 @@
                 </StackPanel>
 
                 <StackPanel x:Name="MonitoringScreen" Visibility="Collapsed">
-                    <TextBlock Text="📊 Мониторинг в реальном времени" 
-                               Foreground="White" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+
+                    <TextBlock Text="Мониторинг в реальном времени"
+                               Foreground="White"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Margin="0,0,0,15"/>
+
+                    <Border Background="#2A2A2A" CornerRadius="8" 
+                            Padding="15" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="{Binding CpuLoad, StringFormat='CPU Load: {0:0} %'}"
+                                       Foreground="White" FontSize="14"/>
+                            <TextBlock Text="{Binding CpuTemp, StringFormat='CPU Temp: {0:0} °C'}"
+                                       Foreground="White" FontSize="14"/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <Border Background="#2A2A2A" CornerRadius="8"
+                            Padding="15" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="{Binding GpuLoad, StringFormat='GPU Load: {0:0} %'}"
+                                       Foreground="White" FontSize="14"/>
+                            <TextBlock Text="{Binding GpuTemp, StringFormat='GPU Temp: {0:0} °C'}"
+                                       Foreground="White" FontSize="14"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Background="#2A2A2A" CornerRadius="8"
+                            Padding="15" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="{Binding RamUsedPercent, StringFormat='RAM: {0:0} %'}"
+                                       Foreground="White" FontSize="14"/>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
 
                 <StackPanel x:Name="SpecsScreen" Visibility="Collapsed">
-                    <TextBlock Text="💻 Информация о системе" 
+                    <TextBlock Text="Информация о системе" 
                                Foreground="White" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
 
                     <Border Background="#2A2A2A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
                         <StackPanel>
                             <TextBlock Foreground="White" FontSize="14">
-                                <Run FontWeight="Bold" Foreground="#6DB3F2">CPU:</Run><LineBreak/>
-                                <Run Text="{Binding Cpu, Mode=OneTime}"/>
+                            <Run FontWeight="Bold" Foreground="#6DB3F2">CPU:</Run><LineBreak/>
+                            <Run Text="{Binding Cpu, Mode=OneTime}"/>
                             </TextBlock>
                             <Separator Margin="0,10,0,10" Background="#444"/>
-
                             <TextBlock Foreground="White" FontSize="14">
-                                <Run FontWeight="Bold" Foreground="#6DB3F2">GPU:</Run><LineBreak/>
-                                <Run Text="{Binding Gpu, Mode=OneTime}"/>
+                            <Run FontWeight="Bold" Foreground="#6DB3F2">GPU:</Run><LineBreak/>
+                            <Run Text="{Binding Gpu, Mode=OneTime}"/>
                             </TextBlock>
                             <Separator Margin="0,10,0,10" Background="#444"/>
-
                             <TextBlock Foreground="White" FontSize="14">
-                                <Run FontWeight="Bold" Foreground="#6DB3F2">Материнская плата:</Run><LineBreak/>
-                                <Run Text="{Binding Motherboard, Mode=OneTime}"/>
+                            <Run FontWeight="Bold" Foreground="#6DB3F2">Материнская плата:</Run><LineBreak/>
+                            <Run Text="{Binding Motherboard, Mode=OneTime}"/>
                             </TextBlock>
                             <Separator Margin="0,10,0,10" Background="#444"/>
-
                             <TextBlock Foreground="White" FontSize="14">
-                                <Run FontWeight="Bold" Foreground="#6DB3F2">ОЗУ:</Run><LineBreak/>
-                                <Run Text="{Binding Ram, Mode=OneTime}"/>
+                            <Run FontWeight="Bold" Foreground="#6DB3F2">ОЗУ:</Run><LineBreak/>
+                            <Run Text="{Binding Ram, Mode=OneTime}"/>
                             </TextBlock>
                         </StackPanel>
                     </Border>
 
-                    <TextBlock Text="🗄️ Диски:" Foreground="White" FontSize="16" 
+                    <TextBlock Text="Диски:" Foreground="White" FontSize="16" 
                                FontWeight="Bold" Margin="0,15,0,10"/>
                     <ListBox ItemsSource="{Binding Disks}" 
                              Background="Transparent" BorderThickness="0" 

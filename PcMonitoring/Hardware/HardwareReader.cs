@@ -1,64 +1,71 @@
+using HardwareMonitor.Hardware;
 using LibreHardwareMonitor.Hardware;
-using System.Management;
+using System;
 using System.Collections.Generic;
+using System.Management;
 
-namespace HardwareMonitor.Hardware;
-
-public class HardwareReader : IDisposable
+namespace HardwareMonitor.Hardware
 {
-    private readonly Computer _computer;
-    private readonly Visitor _visitor = new();
-
-    public HardwareReader()
+    public class HardwareReader : IDisposable
     {
-        _computer = CreateComputer();
-        _computer.Open();
-        _computer.Accept(_visitor);
-    }
+        private readonly Computer _computer;
 
-    public PcSpecs ReadPcSpec()
-    {
-        _computer.Traverse(_visitor);
-        var info = _visitor.Info;
-        var disks = ReadDisks();
-        return new PcSpecs(info.Motherboard, info.Cpu, info.Gpu, info.RamTotal, disks);
-    }
-
-    public HardwareMetrics GetCurrentMetrics()
-    {
-        _computer.Traverse(_visitor);
-        return _visitor.Metrics;
-    }
-
-    private static Computer CreateComputer() => new()
-    {
-        IsMotherboardEnabled = true,
-        IsCpuEnabled = true,
-        IsGpuEnabled = true,
-        IsMemoryEnabled = true,
-        IsStorageEnabled = true,
-        IsControllerEnabled = false,
-        IsNetworkEnabled = false
-    };
-
-    private static List<string> ReadDisks()
-    {
-        var disks = new List<string>();
-        try
+        public HardwareReader()
         {
-            var searcher = new System.Management.ManagementObjectSearcher(
-                "SELECT Model, Size FROM Win32_DiskDrive");
-            foreach (System.Management.ManagementObject disk in searcher.Get())
-            {
-                var name = disk["Model"]?.ToString() ?? "Unknown";
-                var size = (ulong)(disk["Size"] ?? 0);
-                var gb = (float)Math.Round(size / 1024.0 / 1024.0 / 1024.0, 1);
-                disks.Add($"{name} — {gb} GB");
-            }
+            _computer = CreateComputer();
+            _computer.Open();
+            System.Threading.Thread.Sleep(1000);
         }
-        catch { disks.Add("Не удалось получить информацию о дисках"); }
-        return disks;
-    }
 
-    public void Dispose() => _computer?.Close();
+        public PcSpecs ReadPcSpec()
+        {
+            var visitor = new Visitor();
+            _computer.Accept(visitor);
+            var info = visitor.Info;
+            var disks = ReadDisks();
+            return new PcSpecs(info.Motherboard, info.Cpu, info.Gpu, info.RamTotal, disks);
+        }
+
+        public HardwareMetrics GetCurrentMetrics()
+        {
+            var visitor = new Visitor();
+            _computer.Accept(visitor);
+            return visitor.Metrics;
+        }
+
+        private static Computer CreateComputer() => new()
+        {
+            IsMotherboardEnabled = true,
+            IsCpuEnabled = true,
+            IsGpuEnabled = true,
+            IsMemoryEnabled = true,
+            IsStorageEnabled = true,
+            IsControllerEnabled = false,
+            IsNetworkEnabled = false
+        };
+
+        private static List<string> ReadDisks()
+        {
+            var disks = new List<string>();
+            try
+            {
+                var searcher = new ManagementObjectSearcher("SELECT Model, Size FROM Win32_DiskDrive");
+
+                foreach (ManagementObject disk in searcher.Get())
+                {
+                    var name = disk["Model"]?.ToString() ?? "Unknown";
+                    var size = (ulong)(disk["Size"] ?? 0);
+                    var gb = (float)Math.Round(size / 1024.0 / 1024.0 / 1024.0, 1);
+                    disks.Add($"{name} — {gb} GB");
+                }
+            }
+            catch
+            {
+                disks.Add("Не удалось получить информацию о дисках");
+            }
+            return disks;
+        }
+
+        public void Dispose() => _computer?.Close();
+    }
 }

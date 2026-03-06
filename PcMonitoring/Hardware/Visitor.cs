@@ -1,6 +1,8 @@
-﻿using LibreHardwareMonitor.Hardware;
+﻿using HardwareMonitor.Hardware;
+using LibreHardwareMonitor.Hardware;
 using System;
 using System.Linq;
+using System.Management;
 
 namespace HardwareMonitor.Hardware
 {
@@ -13,6 +15,12 @@ namespace HardwareMonitor.Hardware
 
         public void VisitHardware(IHardware hardware)
         {
+            VisitHardwareInfo(hardware);
+            VisitHardwareMetrics(hardware);
+        }
+
+        public void VisitHardwareInfo(IHardware hardware)
+        {
             hardware.Update();
 
             switch (hardware.HardwareType)
@@ -22,12 +30,33 @@ namespace HardwareMonitor.Hardware
                     break;
                 case HardwareType.Cpu:
                     Info.Cpu = hardware.Name;
-                    ExtractCpuMetrics(hardware);
                     break;
                 case HardwareType.GpuNvidia:
                 case HardwareType.GpuAmd:
                 case HardwareType.GpuIntel:
                     Info.Gpu = hardware.Name;
+                    break;
+                case HardwareType.Memory:
+                    ExtractRamInfo(hardware);
+                    break;
+            }
+
+            foreach (var sub in hardware.SubHardware)
+                VisitHardwareInfo(sub);
+        }
+
+        public void VisitHardwareMetrics(IHardware hardware)
+        {
+            hardware.Update();
+
+            switch (hardware.HardwareType)
+            {
+                case HardwareType.Cpu:
+                    ExtractCpuMetrics(hardware);
+                    break;
+                case HardwareType.GpuNvidia:
+                case HardwareType.GpuAmd:
+                case HardwareType.GpuIntel:
                     ExtractGpuMetrics(hardware);
                     break;
                 case HardwareType.Memory:
@@ -36,37 +65,119 @@ namespace HardwareMonitor.Hardware
             }
 
             foreach (var sub in hardware.SubHardware)
-                sub.Accept(this);
+                VisitHardwareMetrics(sub);
         }
 
         public void VisitSensor(ISensor sensor) { }
         public void VisitParameter(IParameter parameter) { }
 
+        private void ExtractRamInfo(IHardware memory)
+        {
+            var available = memory.Sensors
+                .FirstOrDefault(s => s.SensorType == SensorType.Data && s.Name == "Memory Available");
+            if (available?.Value.HasValue == true)
+            {
+                var used = memory.Sensors.FirstOrDefault(s => s.Name == "Memory Used")?.Value ?? 0;
+                var totalGB = Math.Round(available.Value.Value + used, 1);
+                Info.RamTotal = $"{totalGB} GB";
+            }
+        }
+
         private void ExtractCpuMetrics(IHardware cpu)
         {
-            foreach (var s in cpu.Sensors)
+            var cpuLoad = cpu.Sensors
+                .FirstOrDefault(s => s.SensorType == SensorType.Load &&
+                                    s.Name == "CPU Total" &&
+                                    s.Value.HasValue);
+            if (cpuLoad != null)
+                Metrics.CpuLoad = cpuLoad.Value;
+
+            var tctlSensor = cpu.Sensors
+                .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
+                                    s.Name == "Core (Tctl/Tdie)" &&
+                                    s.Value.HasValue);
+
+            if (tctlSensor != null && tctlSensor.Value > 0)
             {
-                if (s.SensorType == SensorType.Load && s.Name == "CPU Total")
-                    Metrics.CpuLoad = s.Value;
-                if (s.SensorType == SensorType.Temperature && s.Name == "CPU Package")
-                    Metrics.CpuTemp = s.Value;
+                Metrics.CpuTemp = tctlSensor.Value;
+                return;
+            }
+
+            var coreTemps = cpu.Sensors
+                .Where(s => s.SensorType == SensorType.Temperature &&
+                           s.Name.Contains("Core #", StringComparison.OrdinalIgnoreCase) &&
+                           s.Value.HasValue && s.Value > 0)
+                .Select(s => s.Value.Value)
+                .ToArray();
+
+            if (coreTemps.Length > 0)
+            {
+                Metrics.CpuTemp = coreTemps.Average();
+                return;
+            }
+
+            var tdieSensor = cpu.Sensors
+                .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
+                                    s.Name.Contains("Tdie", StringComparison.OrdinalIgnoreCase) &&
+                                    s.Value.HasValue && s.Value > 0);
+            if (tdieSensor != null)
+            {
+                Metrics.CpuTemp = tdieSensor.Value;
+                return;
+            }
+
+            var fallback = cpu.Sensors
+                .Where(s => s.SensorType == SensorType.Temperature &&
+                           s.Value.HasValue && s.Value > 0)
+                .OrderByDescending(s => s.Value)
+                .FirstOrDefault();
+
+            if (fallback != null)
+                Metrics.CpuTemp = fallback.Value;
+
+            if (!Metrics.CpuTemp.HasValue || Metrics.CpuTemp <= 0)
+            {
+                try
+                {
+                    var searcher = new ManagementObjectSearcher("root\\WMI",
+                        "SELECT * FROM MSAcpi_ThermalZoneTemperature");
+                    foreach (ManagementObject obj in searcher.Get())
+                    {
+                        var kelvin = Convert.ToDouble(obj["CurrentTemperature"].ToString());
+                        var celsius = kelvin / 10 - 273.15;
+                        if (celsius > 0)
+                        {
+                            Metrics.CpuTemp = (float)celsius;
+                            break;
+                        }
+                    }
+                }
+                catch {}
             }
         }
 
         private void ExtractGpuMetrics(IHardware gpu)
         {
-            foreach (var s in gpu.Sensors)
-            {
-                if (s.SensorType == SensorType.Load && s.Name.Contains("GPU Core"))
-                    Metrics.GpuLoad = s.Value;
-                if (s.SensorType == SensorType.Temperature && s.Name.Contains("GPU Core"))
-                    Metrics.GpuTemp = s.Value;
-            }
+            var gpuLoad = gpu.Sensors
+                .FirstOrDefault(s => s.SensorType == SensorType.Load &&
+                                    (s.Name.Contains("GPU Core", StringComparison.OrdinalIgnoreCase) ||
+                                     s.Name == "GPU Load") &&
+                                    s.Value.HasValue);
+            if (gpuLoad != null)
+                Metrics.GpuLoad = gpuLoad.Value;
+
+            var gpuTemp = gpu.Sensors
+                .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
+                                    s.Name.Contains("GPU Core", StringComparison.OrdinalIgnoreCase) &&
+                                    s.Value.HasValue);
+            if (gpuTemp != null)
+                Metrics.GpuTemp = gpuTemp.Value;
         }
 
         private void ExtractRamMetrics(IHardware memory)
         {
             float used = 0, available = 0;
+
             foreach (var s in memory.Sensors)
             {
                 if (s.SensorType != SensorType.Data || !s.Value.HasValue) continue;
@@ -80,16 +191,7 @@ namespace HardwareMonitor.Hardware
                 Metrics.RamUsedGB = (float)Math.Round(used, 1);
                 Metrics.RamTotalGB = (float)Math.Round(total, 1);
                 Metrics.RamUsedPercent = (float)Math.Round((used / total) * 100, 1);
-                Info.RamTotal = $"{Math.Round(total)} GB";
             }
         }
-    }
-
-    public class HardwareInfo
-    {
-        public string Motherboard { get; set; } = "Unknown";
-        public string Cpu { get; set; } = "Unknown";
-        public string Gpu { get; set; } = "Unknown";
-        public string RamTotal { get; set; } = "Unknown";
     }
 }

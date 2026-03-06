@@ -75,6 +75,12 @@ namespace PcMonitoring.ViewModels
         private void UpdateMetrics()
         {
             var m = _reader.GetCurrentMetrics();
+
+            System.Diagnostics.Debug.WriteLine(
+                $"CPU: {m.CpuLoad?.ToString() ?? "null"}% / {m.CpuTemp?.ToString() ?? "null"}°C | " +
+                $"GPU: {m.GpuLoad?.ToString() ?? "null"}% / {m.GpuTemp?.ToString() ?? "null"}°C");
+
+
             CpuLoad = m.CpuLoad;
             CpuTemp = m.CpuTemp;
             GpuLoad = m.GpuLoad;

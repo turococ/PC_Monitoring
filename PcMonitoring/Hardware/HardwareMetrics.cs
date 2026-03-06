@@ -1,6 +1,4 @@
-﻿using LibreHardwareMonitor.Hardware;
-
-namespace HardwareMonitor.Hardware
+﻿namespace HardwareMonitor.Hardware
 {
     public class HardwareMetrics
     {
@@ -11,5 +9,12 @@ namespace HardwareMonitor.Hardware
         public float? RamUsedPercent { get; set; }
         public float? RamUsedGB { get; set; }
         public float? RamTotalGB { get; set; }
+    }
+    public class HardwareInfo
+    {
+        public string Motherboard { get; set; } = "Unknown";
+        public string Cpu { get; set; } = "Unknown";
+        public string Gpu { get; set; } = "Unknown";
+        public string RamTotal { get; set; } = "Unknown";
     }
 }
