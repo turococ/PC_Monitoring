@@ -15,8 +15,60 @@ namespace HardwareMonitor.Hardware
 
         public void VisitHardware(IHardware hardware)
         {
+            hardware.Update();
+
             VisitHardwareInfo(hardware);
             VisitHardwareMetrics(hardware);
+
+            var tctlSensor = hardware.Sensors
+                .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
+                                     s.Name == "Core (Tctl/Tdie)" &&
+                                     s.Value.HasValue &&
+                                     s.Value > 0);
+
+            if (tctlSensor != null)
+            {
+                Metrics.CpuTemp = tctlSensor.Value;
+            }
+            else
+            {
+                var fallback = hardware.Sensors
+                    .Where(s => s.SensorType == SensorType.Temperature &&
+                               s.Value.HasValue && s.Value > 0)
+                    .OrderByDescending(s => s.Value)
+                    .FirstOrDefault();
+
+                Metrics.CpuTemp = fallback?.Value;
+            }
+
+            var cpuLoad = hardware.Sensors
+                .FirstOrDefault(s => s.SensorType == SensorType.Load &&
+                                     s.Name == "CPU Total" &&
+                                     s.Value.HasValue);
+
+            switch (hardware.HardwareType)
+            {
+                case HardwareType.Motherboard:
+                    Info.Motherboard = hardware.Name;
+                    break;
+                case HardwareType.Cpu:
+                    Info.Cpu = hardware.Name;
+                    if (cpuLoad != null)
+                        Metrics.CpuLoad = cpuLoad.Value;
+                    break;
+                case HardwareType.GpuNvidia:
+                case HardwareType.GpuAmd:
+                case HardwareType.GpuIntel:
+                    Info.Gpu = hardware.Name;
+                    ExtractGpuMetrics(hardware);
+                    break;
+                case HardwareType.Memory:
+                    ExtractRamMetrics(hardware);
+                    break;
+            }
+            
+            foreach (var sub in hardware.SubHardware)
+                sub.Accept(this);
         }
 
         public void VisitHardwareInfo(IHardware hardware)
@@ -250,9 +302,7 @@ namespace HardwareMonitor.Hardware
                 Metrics.CpuTemp = sensor.Sensor.Value;
                 return;
             }
-
-            // Last-resort fallback: pick a reasonable non-GPU temperature
-            // so the UI can display a value on systems with unusual sensor names.
+            
             var genericSensor = temperatureSensors
                 .Where(s => !ContainsAny(hardware.Name, "gpu", "nvidia", "radeon") &&
                             !ContainsAny(s.Name, "gpu", "hot spot", "vrm") &&
