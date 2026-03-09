@@ -233,7 +233,6 @@ namespace HardwareMonitor.Hardware
             return score;
         }
 
-        private static bool ContainsAny(string value, params string[] patterns) =>
-            patterns.Any(p => value.Contains(p, StringComparison.OrdinalIgnoreCase));
+        private static bool ContainsAny(string value, params string[] patterns) => patterns.Any(p => value.Contains(p, StringComparison.OrdinalIgnoreCase));
     }
 }

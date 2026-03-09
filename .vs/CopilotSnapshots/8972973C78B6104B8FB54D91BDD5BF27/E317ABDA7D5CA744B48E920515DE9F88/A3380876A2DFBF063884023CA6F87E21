@@ -3,6 +3,7 @@ using LibreHardwareMonitor.Hardware;
 using System;
 using System.Linq;
 using System.Management;
+using System.Diagnostics;
 
 namespace HardwareMonitor.Hardware
 {
@@ -59,9 +60,7 @@ namespace HardwareMonitor.Hardware
                 case HardwareType.GpuIntel:
                     ExtractGpuMetrics(hardware);
                     break;
-                case HardwareType.Memory:
-                    ExtractRamMetrics(hardware);
-                    break;
+                // Memory metrics disabled — only temperature is tracked
             }
 
             TryExtractCpuTempFromGenericSensors(hardware);
@@ -91,8 +90,7 @@ namespace HardwareMonitor.Hardware
                 .FirstOrDefault(s => s.SensorType == SensorType.Load &&
                                     s.Name == "CPU Total" &&
                                     s.Value.HasValue);
-            if (cpuLoad != null)
-                Metrics.CpuLoad = cpuLoad.Value;
+            // CPU load tracking disabled — only temperatures are collected
 
             var tctlSensor = cpu.Sensors
                 .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
@@ -139,6 +137,17 @@ namespace HardwareMonitor.Hardware
 
             if (!Metrics.CpuTemp.HasValue || Metrics.CpuTemp <= 0)
             {
+                // Dump available sensors for diagnostics so we can see what sensors are exposed on this machine
+                try
+                {
+                    Debug.WriteLine($"[Visitor] No CPU temp found for hardware '{cpu.Name}'. Listing available temperature sensors:");
+                    foreach (var s in cpu.Sensors.Where(s => s.SensorType == SensorType.Temperature))
+                    {
+                        Debug.WriteLine($"[Visitor] Sensor: '{s.Name}', Type: {s.SensorType}, Value: {(s.Value.HasValue ? s.Value.ToString() : "null")}");
+                    }
+                }
+                catch { }
+
                 try
                 {
                     var searcher = new ManagementObjectSearcher("root\\WMI",
@@ -233,7 +242,6 @@ namespace HardwareMonitor.Hardware
             return score;
         }
 
-        private static bool ContainsAny(string value, params string[] patterns) =>
-            patterns.Any(p => value.Contains(p, StringComparison.OrdinalIgnoreCase));
+        private static bool ContainsAny(string value, params string[] patterns) => patterns.Any(p => value.Contains(p, StringComparison.OrdinalIgnoreCase));
     }
 }
