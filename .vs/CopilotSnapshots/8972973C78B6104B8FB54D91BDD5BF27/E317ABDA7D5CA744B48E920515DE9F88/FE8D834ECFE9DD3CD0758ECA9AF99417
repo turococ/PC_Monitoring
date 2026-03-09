@@ -3,6 +3,7 @@ using LibreHardwareMonitor.Hardware;
 using System;
 using System.Linq;
 using System.Management;
+using System.Diagnostics;
 
 namespace HardwareMonitor.Hardware
 {
@@ -49,8 +50,6 @@ namespace HardwareMonitor.Hardware
         {
             hardware.Update();
 
-            TryExtractPrimaryCpuSensors(hardware);
-
             switch (hardware.HardwareType)
             {
                 case HardwareType.Cpu:
@@ -74,33 +73,6 @@ namespace HardwareMonitor.Hardware
 
         public void VisitSensor(ISensor sensor) { }
         public void VisitParameter(IParameter parameter) { }
-
-
-        private void TryExtractPrimaryCpuSensors(IHardware hardware)
-        {
-            if (!Metrics.CpuTemp.HasValue || Metrics.CpuTemp <= 0)
-            {
-                var tctlSensor = hardware.Sensors
-                    .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
-                                         s.Name == "Core (Tctl/Tdie)" &&
-                                         s.Value.HasValue &&
-                                         s.Value > 0);
-
-                if (tctlSensor != null)
-                    Metrics.CpuTemp = tctlSensor.Value;
-            }
-
-            if (!Metrics.CpuLoad.HasValue || Metrics.CpuLoad <= 0)
-            {
-                var cpuLoad = hardware.Sensors
-                    .FirstOrDefault(s => s.SensorType == SensorType.Load &&
-                                         s.Name == "CPU Total" &&
-                                         s.Value.HasValue);
-
-                if (cpuLoad != null)
-                    Metrics.CpuLoad = cpuLoad.Value;
-            }
-        }
 
         private void ExtractRamInfo(IHardware memory)
         {
@@ -168,6 +140,17 @@ namespace HardwareMonitor.Hardware
 
             if (!Metrics.CpuTemp.HasValue || Metrics.CpuTemp <= 0)
             {
+                // Dump available sensors for diagnostics so we can see what sensors are exposed on this machine
+                try
+                {
+                    Debug.WriteLine($"[Visitor] No CPU temp found for hardware '{cpu.Name}'. Listing available temperature sensors:");
+                    foreach (var s in cpu.Sensors.Where(s => s.SensorType == SensorType.Temperature))
+                    {
+                        Debug.WriteLine($"[Visitor] Sensor: '{s.Name}', Type: {s.SensorType}, Value: {(s.Value.HasValue ? s.Value.ToString() : "null")}");
+                    }
+                }
+                catch { }
+
                 try
                 {
                     var searcher = new ManagementObjectSearcher("root\\WMI",
@@ -230,11 +213,8 @@ namespace HardwareMonitor.Hardware
             if (Metrics.CpuTemp.HasValue && Metrics.CpuTemp > 0)
                 return;
 
-            var temperatureSensors = hardware.Sensors
+            var sensor = hardware.Sensors
                 .Where(s => s.SensorType == SensorType.Temperature && s.Value.HasValue && s.Value > 0)
-                .ToArray();
-
-            var sensor = temperatureSensors
                 .Select(s => new
                 {
                     Sensor = s,
@@ -246,22 +226,7 @@ namespace HardwareMonitor.Hardware
                 .FirstOrDefault();
 
             if (sensor != null)
-            {
                 Metrics.CpuTemp = sensor.Sensor.Value;
-                return;
-            }
-
-            // Last-resort fallback: pick a reasonable non-GPU temperature
-            // so the UI can display a value on systems with unusual sensor names.
-            var genericSensor = temperatureSensors
-                .Where(s => !ContainsAny(hardware.Name, "gpu", "nvidia", "radeon") &&
-                            !ContainsAny(s.Name, "gpu", "hot spot", "vrm") &&
-                            s.Value is >= 10 and <= 120)
-                .OrderByDescending(s => s.Value)
-                .FirstOrDefault();
-
-            if (genericSensor != null)
-                Metrics.CpuTemp = genericSensor.Value;
         }
 
         private static int GetCpuSensorScore(IHardware hardware, ISensor sensor)
@@ -271,16 +236,15 @@ namespace HardwareMonitor.Hardware
             if (hardware.HardwareType == HardwareType.Cpu)
                 score += 10;
 
-            if (ContainsAny(hardware.Name, "cpu", "processor", "ryzen", "core i", "процессор", "цп"))
+            if (ContainsAny(hardware.Name, "cpu", "processor", "ryzen", "core i"))
                 score += 8;
 
-            if (ContainsAny(sensor.Name, "tctl", "tdie", "cpu package", "package", "cpu", "ccd", "core average", "package id", "цп", "процессор"))
+            if (ContainsAny(sensor.Name, "tctl", "tdie", "cpu package", "package", "cpu", "ccd", "core average"))
                 score += 12;
 
             return score;
         }
 
-        private static bool ContainsAny(string value, params string[] patterns) =>
-            patterns.Any(p => value.Contains(p, StringComparison.OrdinalIgnoreCase));
+        private static bool ContainsAny(string value, params string[] patterns) => patterns.Any(p => value.Contains(p, StringComparison.OrdinalIgnoreCase));
     }
 }
