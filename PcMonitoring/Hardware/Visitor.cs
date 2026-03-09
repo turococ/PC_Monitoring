@@ -49,6 +49,8 @@ namespace HardwareMonitor.Hardware
         {
             hardware.Update();
 
+            TryExtractPrimaryCpuSensors(hardware);
+
             switch (hardware.HardwareType)
             {
                 case HardwareType.Cpu:
@@ -64,12 +66,41 @@ namespace HardwareMonitor.Hardware
                     break;
             }
 
+            TryExtractCpuTempFromGenericSensors(hardware);
+
             foreach (var sub in hardware.SubHardware)
                 VisitHardwareMetrics(sub);
         }
 
         public void VisitSensor(ISensor sensor) { }
         public void VisitParameter(IParameter parameter) { }
+
+
+        private void TryExtractPrimaryCpuSensors(IHardware hardware)
+        {
+            if (!Metrics.CpuTemp.HasValue || Metrics.CpuTemp <= 0)
+            {
+                var tctlSensor = hardware.Sensors
+                    .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
+                                         s.Name == "Core (Tctl/Tdie)" &&
+                                         s.Value.HasValue &&
+                                         s.Value > 0);
+
+                if (tctlSensor != null)
+                    Metrics.CpuTemp = tctlSensor.Value;
+            }
+
+            if (!Metrics.CpuLoad.HasValue || Metrics.CpuLoad <= 0)
+            {
+                var cpuLoad = hardware.Sensors
+                    .FirstOrDefault(s => s.SensorType == SensorType.Load &&
+                                         s.Name == "CPU Total" &&
+                                         s.Value.HasValue);
+
+                if (cpuLoad != null)
+                    Metrics.CpuLoad = cpuLoad.Value;
+            }
+        }
 
         private void ExtractRamInfo(IHardware memory)
         {
@@ -193,5 +224,63 @@ namespace HardwareMonitor.Hardware
                 Metrics.RamUsedPercent = (float)Math.Round((used / total) * 100, 1);
             }
         }
+
+        private void TryExtractCpuTempFromGenericSensors(IHardware hardware)
+        {
+            if (Metrics.CpuTemp.HasValue && Metrics.CpuTemp > 0)
+                return;
+
+            var temperatureSensors = hardware.Sensors
+                .Where(s => s.SensorType == SensorType.Temperature && s.Value.HasValue && s.Value > 0)
+                .ToArray();
+
+            var sensor = temperatureSensors
+                .Select(s => new
+                {
+                    Sensor = s,
+                    Score = GetCpuSensorScore(hardware, s)
+                })
+                .Where(x => x.Score > 0)
+                .OrderByDescending(x => x.Score)
+                .ThenByDescending(x => x.Sensor.Value)
+                .FirstOrDefault();
+
+            if (sensor != null)
+            {
+                Metrics.CpuTemp = sensor.Sensor.Value;
+                return;
+            }
+
+            // Last-resort fallback: pick a reasonable non-GPU temperature
+            // so the UI can display a value on systems with unusual sensor names.
+            var genericSensor = temperatureSensors
+                .Where(s => !ContainsAny(hardware.Name, "gpu", "nvidia", "radeon") &&
+                            !ContainsAny(s.Name, "gpu", "hot spot", "vrm") &&
+                            s.Value is >= 10 and <= 120)
+                .OrderByDescending(s => s.Value)
+                .FirstOrDefault();
+
+            if (genericSensor != null)
+                Metrics.CpuTemp = genericSensor.Value;
+        }
+
+        private static int GetCpuSensorScore(IHardware hardware, ISensor sensor)
+        {
+            var score = 0;
+
+            if (hardware.HardwareType == HardwareType.Cpu)
+                score += 10;
+
+            if (ContainsAny(hardware.Name, "cpu", "processor", "ryzen", "core i", "процессор", "цп"))
+                score += 8;
+
+            if (ContainsAny(sensor.Name, "tctl", "tdie", "cpu package", "package", "cpu", "ccd", "core average", "package id", "цп", "процессор"))
+                score += 12;
+
+            return score;
+        }
+
+        private static bool ContainsAny(string value, params string[] patterns) =>
+            patterns.Any(p => value.Contains(p, StringComparison.OrdinalIgnoreCase));
     }
 }

@@ -40,7 +40,7 @@ namespace HardwareMonitor.Hardware
             IsGpuEnabled = true,
             IsMemoryEnabled = true,
             IsStorageEnabled = true,
-            IsControllerEnabled = false,
+            IsControllerEnabled = true,
             IsNetworkEnabled = false
         };
 
