@@ -1,4 +1,7 @@
-﻿using LibreHardwareMonitor.Hardware;
+﻿using HardwareMonitor.Hardware;
+using LibreHardwareMonitor.Hardware;
+using System;
+using System.Linq;
 using System.Management;
 
 namespace HardwareMonitor.Hardware

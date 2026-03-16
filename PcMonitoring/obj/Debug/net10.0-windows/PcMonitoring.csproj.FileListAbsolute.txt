@@ -137,7 +137,6 @@ C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-w
 C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-windows\LiveChartsCore.dll
 C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-windows\LiveChartsCore.SkiaSharpView.dll
 C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-windows\LiveChartsCore.SkiaSharpView.WPF.dll
-C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-windows\OpenTK.dll
 C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-windows\GLWpfControl.dll
 C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-windows\SkiaSharp.dll
 C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-windows\SkiaSharp.HarfBuzz.dll
@@ -151,3 +150,4 @@ C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-w
 C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-windows\runtimes\win-arm64\native\libSkiaSharp.dll
 C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-windows\runtimes\win-x64\native\libSkiaSharp.dll
 C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-windows\runtimes\win-x86\native\libSkiaSharp.dll
+C:\Users\turococ\Documents\GitHub\PC_Monitoring\PcMonitoring\bin\Debug\net10.0-windows\OpenTK.dll

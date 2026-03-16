@@ -1,4 +1,7 @@
-﻿using LibreHardwareMonitor.Hardware;
+﻿using HardwareMonitor.Hardware;
+using LibreHardwareMonitor.Hardware;
+using System;
+using System.Linq;
 using System.Management;
 
 namespace HardwareMonitor.Hardware
@@ -23,9 +26,9 @@ namespace HardwareMonitor.Hardware
                                      s.Value.HasValue &&
                                      s.Value > 0);
 
-            if (tctlSensor != null && tctlSensor.Value.HasValue)
+            if (tctlSensor != null)
             {
-                Metrics.CpuTemp = tctlSensor.Value.Value;
+                Metrics.CpuTemp = tctlSensor.Value;
             }
             else
             {
@@ -50,8 +53,8 @@ namespace HardwareMonitor.Hardware
                     break;
                 case HardwareType.Cpu:
                     Info.Cpu = hardware.Name;
-                    if (cpuLoad?.Value.HasValue == true)
-                        Metrics.CpuLoad = cpuLoad.Value.Value;
+                    if (cpuLoad != null)
+                        Metrics.CpuLoad = cpuLoad.Value;
                     break;
                 case HardwareType.GpuNvidia:
                 case HardwareType.GpuAmd:
@@ -135,8 +138,8 @@ namespace HardwareMonitor.Hardware
                                          s.Value.HasValue &&
                                          s.Value > 0);
 
-                if (tctlSensor?.Value.HasValue == true)
-                    Metrics.CpuTemp = tctlSensor.Value.Value;
+                if (tctlSensor != null)
+                    Metrics.CpuTemp = tctlSensor.Value;
             }
 
             if (!Metrics.CpuLoad.HasValue || Metrics.CpuLoad <= 0)
@@ -146,8 +149,8 @@ namespace HardwareMonitor.Hardware
                                          s.Name == "CPU Total" &&
                                          s.Value.HasValue);
 
-                if (cpuLoad?.Value.HasValue == true)
-                    Metrics.CpuLoad = cpuLoad.Value.Value;
+                if (cpuLoad != null)
+                    Metrics.CpuLoad = cpuLoad.Value;
             }
         }
 
@@ -169,17 +172,17 @@ namespace HardwareMonitor.Hardware
                 .FirstOrDefault(s => s.SensorType == SensorType.Load &&
                                     s.Name == "CPU Total" &&
                                     s.Value.HasValue);
-            if (cpuLoad?.Value.HasValue == true)
-                Metrics.CpuLoad = cpuLoad.Value.Value;
+            if (cpuLoad != null)
+                Metrics.CpuLoad = cpuLoad.Value;
 
             var tctlSensor = cpu.Sensors
                 .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
                                     s.Name == "Core (Tctl/Tdie)" &&
                                     s.Value.HasValue);
 
-            if (tctlSensor != null && tctlSensor.Value.HasValue && tctlSensor.Value.Value > 0)
+            if (tctlSensor != null && tctlSensor.Value > 0)
             {
-                Metrics.CpuTemp = tctlSensor.Value.Value;
+                Metrics.CpuTemp = tctlSensor.Value;
                 return;
             }
 
@@ -200,9 +203,9 @@ namespace HardwareMonitor.Hardware
                 .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
                                     s.Name.Contains("Tdie", StringComparison.OrdinalIgnoreCase) &&
                                     s.Value.HasValue && s.Value > 0);
-            if (tdieSensor?.Value.HasValue == true)
+            if (tdieSensor != null)
             {
-                Metrics.CpuTemp = tdieSensor.Value.Value;
+                Metrics.CpuTemp = tdieSensor.Value;
                 return;
             }
 
@@ -212,8 +215,8 @@ namespace HardwareMonitor.Hardware
                 .OrderByDescending(s => s.Value)
                 .FirstOrDefault();
 
-            if (fallback?.Value.HasValue == true)
-                Metrics.CpuTemp = fallback.Value.Value;
+            if (fallback != null)
+                Metrics.CpuTemp = fallback.Value;
 
             if (!Metrics.CpuTemp.HasValue || Metrics.CpuTemp <= 0)
             {
@@ -243,15 +246,15 @@ namespace HardwareMonitor.Hardware
                                     (s.Name.Contains("GPU Core", StringComparison.OrdinalIgnoreCase) ||
                                      s.Name == "GPU Load") &&
                                     s.Value.HasValue);
-            if (gpuLoad?.Value.HasValue == true)
-                Metrics.GpuLoad = gpuLoad.Value.Value;
+            if (gpuLoad != null)
+                Metrics.GpuLoad = gpuLoad.Value;
 
             var gpuTemp = gpu.Sensors
                 .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
                                     s.Name.Contains("GPU Core", StringComparison.OrdinalIgnoreCase) &&
                                     s.Value.HasValue);
-            if (gpuTemp?.Value.HasValue == true)
-                Metrics.GpuTemp = gpuTemp.Value.Value;
+            if (gpuTemp != null)
+                Metrics.GpuTemp = gpuTemp.Value;
         }
 
         private void ExtractRamMetrics(IHardware memory)
@@ -291,12 +294,12 @@ namespace HardwareMonitor.Hardware
                 })
                 .Where(x => x.Score > 0)
                 .OrderByDescending(x => x.Score)
-                .ThenByDescending(x => x.Sensor.Value.Value)
+                .ThenByDescending(x => x.Sensor.Value)
                 .FirstOrDefault();
 
-            if (sensor != null && sensor.Sensor.Value.HasValue)
+            if (sensor != null)
             {
-                Metrics.CpuTemp = sensor.Sensor.Value.Value;
+                Metrics.CpuTemp = sensor.Sensor.Value;
                 return;
             }
             
@@ -307,8 +310,8 @@ namespace HardwareMonitor.Hardware
                 .OrderByDescending(s => s.Value)
                 .FirstOrDefault();
 
-            if (genericSensor?.Value.HasValue == true)
-                Metrics.CpuTemp = genericSensor.Value.Value;
+            if (genericSensor != null)
+                Metrics.CpuTemp = genericSensor.Value;
         }
 
         private static int GetCpuSensorScore(IHardware hardware, ISensor sensor)
