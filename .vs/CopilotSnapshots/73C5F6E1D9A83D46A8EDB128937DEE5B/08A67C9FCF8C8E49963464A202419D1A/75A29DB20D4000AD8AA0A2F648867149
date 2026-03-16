@@ -16,7 +16,6 @@ namespace PcMonitoring.ViewModels
         public string Ram { get; }
         public IReadOnlyList<string> Disks { get; }
 
-        // Текущая загрузка CPU в процентах.
         private float? _cpuLoad;
         public float? CpuLoad
         {
@@ -24,7 +23,6 @@ namespace PcMonitoring.ViewModels
             set { _cpuLoad = value; OnPropertyChanged(); }
         }
 
-        // Текущая температура CPU в цельсиях.
         private float? _cpuTemp;
         public float? CpuTemp
         {
@@ -32,7 +30,6 @@ namespace PcMonitoring.ViewModels
             set { _cpuTemp = value; OnPropertyChanged(); }
         }
 
-        // Текущая загрузка GPU в процентах.
         private float? _gpuLoad;
         public float? GpuLoad
         {
@@ -40,7 +37,6 @@ namespace PcMonitoring.ViewModels
             set { _gpuLoad = value; OnPropertyChanged(); }
         }
 
-        // текущая температура GPU в цельсиях.
         private float? _gpuTemp;
         public float? GpuTemp
         {
@@ -48,7 +44,6 @@ namespace PcMonitoring.ViewModels
             set { _gpuTemp = value; OnPropertyChanged(); }
         }
 
-        // Процент использования оперативной памяти.
         private float? _ramUsedPercent;
         public float? RamUsedPercent
         {
@@ -62,7 +57,6 @@ namespace PcMonitoring.ViewModels
         {
             _reader = new HardwareReader();
 
-            // Получаем основные характеристики компьютера
             var specs = _reader.ReadPcSpec();
             Cpu = specs.Cpu;
             Gpu = specs.Gpu;
@@ -70,7 +64,6 @@ namespace PcMonitoring.ViewModels
             Ram = specs.RamTotal;
             Disks = specs.Disks;
 
-            // Таймер для обновления метрик каждые 2 секунды
             _timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(2)
@@ -83,12 +76,11 @@ namespace PcMonitoring.ViewModels
         {
             var m = _reader.GetCurrentMetrics();
 
-            // Таймер для обновления метрик каждые 2 секунды
             System.Diagnostics.Debug.WriteLine(
                 $"CPU: {m.CpuLoad?.ToString() ?? "null"}% / {m.CpuTemp?.ToString() ?? "null"}°C | " +
                 $"GPU: {m.GpuLoad?.ToString() ?? "null"}% / {m.GpuTemp?.ToString() ?? "null"}°C");
 
-            // Обновляем свойства, связанные с UI
+
             CpuLoad = m.CpuLoad;
             CpuTemp = m.CpuTemp;
             GpuLoad = m.GpuLoad;
@@ -96,9 +88,7 @@ namespace PcMonitoring.ViewModels
             RamUsedPercent = m.RamUsedPercent;
         }
 
-        // остановка работы и освобождение ресурсов
         public void Stop() => _reader?.Dispose();
-
 
         protected void OnPropertyChanged([CallerMemberName] string? name = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
