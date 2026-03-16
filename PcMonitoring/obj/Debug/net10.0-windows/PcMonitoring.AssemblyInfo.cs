@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PcMonitoring")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5769185dca542415272c5ad033db4c3d9cebeb23")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13a194cc30433f8e84fc736b79d31d33b1509008")]
 [assembly: System.Reflection.AssemblyProductAttribute("PcMonitoring")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PcMonitoring")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

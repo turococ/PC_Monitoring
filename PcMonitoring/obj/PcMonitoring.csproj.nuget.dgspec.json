@@ -53,6 +53,10 @@
             "LibreHardwareMonitorLib": {
               "target": "Package",
               "version": "[0.9.5, )"
+            },
+            "LiveChartsCore.SkiaSharpView.WPF": {
+              "target": "Package",
+              "version": "[2.0.0-rc6.1, )"
             }
           },
           "imports": [
@@ -74,7 +78,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.104/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
