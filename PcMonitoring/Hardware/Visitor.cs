@@ -3,36 +3,20 @@ using System.Management;
 
 namespace HardwareMonitor.Hardware
 {
-    /// Реализация паттерна Visitor для обхода всех компонентов компьютера
-    /// через LibreHardwareMonitor.
-    /// Класс собирает:
-    /// 1. Информацию о железе (CPU, GPU, RAM, Motherboard)
-    /// 2. Текущие метрики (температура, загрузка, использование RAM)
     public class Visitor : IVisitor
     {
-        /// Статическая информация о системе (названия устройств, общий объем RAM).
         public HardwareInfo Info { get; } = new();
-
-        /// Текущие метрики системы (температуры, загрузка CPU/GPU, использование RAM).
         public HardwareMetrics Metrics { get; } = new();
 
-        /// Запускает обход всех устройств компьютера
         public void VisitComputer(IComputer computer) => computer.Traverse(this);
 
-        /// Вызывается для каждого устройства (CPU, GPU, RAM, Motherboard).
-        /// Обновляет датчики и извлекает информацию и метрики.
         public void VisitHardware(IHardware hardware)
         {
-            // Обновляем значения всех сенсоров устройства
             hardware.Update();
 
-            // Извлекаем информацию о железе
             VisitHardwareInfo(hardware);
-
-            // Извлекаем текущие метрики
             VisitHardwareMetrics(hardware);
 
-            // Попытка получить основной температурный сенсор CPU (AMD Ryzen)
             var tctlSensor = hardware.Sensors
                 .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
                                      s.Name == "Core (Tctl/Tdie)" &&
@@ -45,7 +29,6 @@ namespace HardwareMonitor.Hardware
             }
             else
             {
-                // fallback — берем самый высокий температурный сенсор
                 var fallback = hardware.Sensors
                     .Where(s => s.SensorType == SensorType.Temperature &&
                                s.Value.HasValue && s.Value > 0)
@@ -55,13 +38,11 @@ namespace HardwareMonitor.Hardware
                 Metrics.CpuTemp = fallback?.Value;
             }
 
-            // Получаем общий процент загрузки CPU
             var cpuLoad = hardware.Sensors
                 .FirstOrDefault(s => s.SensorType == SensorType.Load &&
                                      s.Name == "CPU Total" &&
                                      s.Value.HasValue);
 
-            // Сохраняем информацию в зависимости от типа устройства
             switch (hardware.HardwareType)
             {
                 case HardwareType.Motherboard:
@@ -86,12 +67,10 @@ namespace HardwareMonitor.Hardware
                     break;
             }
 
-            // Рекурсивно обходим дочерние устройства
             foreach (var sub in hardware.SubHardware)
                 sub.Accept(this);
         }
 
-        /// Извлекает базовую информацию об устройствах (названия, RAM).
         public void VisitHardwareInfo(IHardware hardware)
         {
             hardware.Update();
@@ -117,17 +96,14 @@ namespace HardwareMonitor.Hardware
                     break;
             }
 
-            // Рекурсивный обход
             foreach (var sub in hardware.SubHardware)
                 VisitHardwareInfo(sub);
         }
 
-        /// Извлекает метрики системы (нагрузка CPU/GPU, температура, RAM).
         public void VisitHardwareMetrics(IHardware hardware)
         {
             hardware.Update();
 
-            // Пытаемся получить основные сенсоры CPU
             TryExtractPrimaryCpuSensors(hardware);
 
             switch (hardware.HardwareType)
@@ -147,23 +123,15 @@ namespace HardwareMonitor.Hardware
                     break;
             }
 
-            // Пытаемся получить температуру CPU из общих сенсоров
             TryExtractCpuTempFromGenericSensors(hardware);
 
             foreach (var sub in hardware.SubHardware)
                 VisitHardwareMetrics(sub);
         }
 
-        
-        /// Не используется, но обязателен для интерфейса IVisitor.
         public void VisitSensor(ISensor sensor) { }
-
-        /// Не используется, но обязателен для интерфейса IVisitor.
         public void VisitParameter(IParameter parameter) { }
 
-        /// Пытается извлечь основные сенсоры CPU:
-        /// - температуру (Tctl/Tdie)
-        /// - загрузку CPU
         private void TryExtractPrimaryCpuSensors(IHardware hardware)
         {
             if (!Metrics.CpuTemp.HasValue || Metrics.CpuTemp <= 0)
@@ -190,7 +158,6 @@ namespace HardwareMonitor.Hardware
             }
         }
 
-        /// Определяет общий объем RAM.
         private void ExtractRamInfo(IHardware memory)
         {
             var available = memory.Sensors
@@ -205,9 +172,6 @@ namespace HardwareMonitor.Hardware
             }
         }
 
-        /// Извлекает метрики CPU:
-        /// - загрузка CPU
-        /// - температура CPU
         private void ExtractCpuMetrics(IHardware cpu)
         {
             var cpuLoad = cpu.Sensors
@@ -218,7 +182,6 @@ namespace HardwareMonitor.Hardware
             if (cpuLoad?.Value.HasValue == true)
                 Metrics.CpuLoad = cpuLoad.Value.Value;
 
-            // Основной сенсор температуры Ryzen
             var tctlSensor = cpu.Sensors
                 .FirstOrDefault(s => s.SensorType == SensorType.Temperature &&
                                     s.Name == "Core (Tctl/Tdie)" &&
@@ -230,7 +193,6 @@ namespace HardwareMonitor.Hardware
                 return;
             }
 
-            // Средняя температура по ядрам
             var coreTemps = cpu.Sensors
                 .Where(s => s.SensorType == SensorType.Temperature &&
                            s.Name.Contains("Core #", StringComparison.OrdinalIgnoreCase) &&
@@ -244,7 +206,6 @@ namespace HardwareMonitor.Hardware
                 return;
             }
 
-            // Fallback — любой доступный температурный сенсор
             var fallback = cpu.Sensors
                 .Where(s => s.SensorType == SensorType.Temperature &&
                            s.Value.HasValue && s.Value > 0)
@@ -254,7 +215,6 @@ namespace HardwareMonitor.Hardware
             if (fallback?.Value.HasValue == true)
                 Metrics.CpuTemp = fallback.Value.Value;
 
-            // Последний fallback — получение температуры через WMI
             if (!Metrics.CpuTemp.HasValue || Metrics.CpuTemp <= 0)
             {
                 try
@@ -278,7 +238,6 @@ namespace HardwareMonitor.Hardware
             }
         }
 
-        /// Извлекает метрики GPU (температура и загрузка).
         private void ExtractGpuMetrics(IHardware gpu)
         {
             var gpuLoad = gpu.Sensors
@@ -299,7 +258,6 @@ namespace HardwareMonitor.Hardware
                 Metrics.GpuTemp = gpuTemp.Value.Value;
         }
 
-        /// Извлекает метрики использования RAM.
         private void ExtractRamMetrics(IHardware memory)
         {
             float used = 0, available = 0;
@@ -322,8 +280,6 @@ namespace HardwareMonitor.Hardware
             }
         }
 
-        /// Пытается определить температуру CPU из любых доступных сенсоров,
-        /// используя систему приоритетов.
         private void TryExtractCpuTempFromGenericSensors(IHardware hardware)
         {
             if (Metrics.CpuTemp.HasValue && Metrics.CpuTemp > 0)
@@ -351,8 +307,6 @@ namespace HardwareMonitor.Hardware
             }
         }
 
-        /// Вычисляет "оценку" сенсора — насколько вероятно,
-        /// что он относится к CPU температуре.
         private static int GetCpuSensorScore(IHardware hardware, ISensor sensor)
         {
             var score = 0;
@@ -369,7 +323,6 @@ namespace HardwareMonitor.Hardware
             return score;
         }
 
-        /// Проверяет, содержит ли строка один из указанных шаблонов.
         private static bool ContainsAny(string value, params string[] patterns) =>
             patterns.Any(p => value.Contains(p, StringComparison.OrdinalIgnoreCase));
     }

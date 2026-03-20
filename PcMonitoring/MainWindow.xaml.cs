@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using PcMonitoring.ViewModels;
+using PcMonitoring.ViewModel;
 using System.Windows.Threading;
 
 namespace PcMonitoring

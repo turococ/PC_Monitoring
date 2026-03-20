@@ -15,7 +15,7 @@
           }
         }
       },
-      "DiskInfoToolkit/1.1.1": {
+      "DiskInfoToolkit/1.1.2": {
         "type": "package",
         "dependencies": {
           "BlackSharp.Core": "1.0.7"
@@ -31,11 +31,11 @@
           }
         }
       },
-      "HarfBuzzSharp/8.3.1.1": {
+      "HarfBuzzSharp/8.3.0.1": {
         "type": "package",
         "dependencies": {
-          "HarfBuzzSharp.NativeAssets.Win32": "8.3.1.1",
-          "HarfBuzzSharp.NativeAssets.macOS": "8.3.1.1"
+          "HarfBuzzSharp.NativeAssets.Win32": "8.3.0.1",
+          "HarfBuzzSharp.NativeAssets.macOS": "8.3.0.1"
         },
         "compile": {
           "lib/net8.0/HarfBuzzSharp.dll": {
@@ -48,7 +48,7 @@
           }
         }
       },
-      "HarfBuzzSharp.NativeAssets.macOS/8.3.1.1": {
+      "HarfBuzzSharp.NativeAssets.macOS/8.3.0.1": {
         "type": "package",
         "compile": {
           "lib/net8.0/_._": {}
@@ -63,7 +63,7 @@
           }
         }
       },
-      "HarfBuzzSharp.NativeAssets.Win32/8.3.1.1": {
+      "HarfBuzzSharp.NativeAssets.Win32/8.3.0.1": {
         "type": "package",
         "compile": {
           "lib/net8.0/_._": {}
@@ -99,16 +99,16 @@
           }
         }
       },
-      "LibreHardwareMonitorLib/0.9.5": {
+      "LibreHardwareMonitorLib/0.9.6": {
         "type": "package",
         "dependencies": {
-          "DiskInfoToolkit": "1.1.1",
+          "DiskInfoToolkit": "1.1.2",
           "HidSharp": "2.6.4",
           "Mono.Posix.NETStandard": "1.0.0",
           "RAMSPDToolkit-NDD": "1.4.2",
           "System.IO.FileSystem.AccessControl": "5.0.0",
-          "System.IO.Ports": "10.0.1",
-          "System.Management": "10.0.1"
+          "System.IO.Ports": "10.0.3",
+          "System.Management": "10.0.2"
         },
         "compile": {
           "ref/net10.0/LibreHardwareMonitorLib.dll": {
@@ -130,54 +130,57 @@
           }
         }
       },
-      "LiveChartsCore/2.0.0-rc6.1": {
+      "LiveChartsCore/2.0.0-rc5.4": {
         "type": "package",
         "compile": {
-          "lib/net8.0/LiveChartsCore.dll": {
+          "lib/net8.0-windows7.0/LiveChartsCore.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/LiveChartsCore.dll": {
+          "lib/net8.0-windows7.0/LiveChartsCore.dll": {
             "related": ".xml"
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView/2.0.0-rc6.1": {
+      "LiveChartsCore.SkiaSharpView/2.0.0-rc5.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore": "2.0.0-rc6.1",
+          "LiveChartsCore": "2.0.0-rc5.4",
           "SkiaSharp": "2.88.9",
           "SkiaSharp.HarfBuzz": "2.88.9"
         },
         "compile": {
-          "lib/net8.0/LiveChartsCore.SkiaSharpView.dll": {
+          "lib/net8.0-windows7.0/LiveChartsCore.SkiaSharpView.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/LiveChartsCore.SkiaSharpView.dll": {
+          "lib/net8.0-windows7.0/LiveChartsCore.SkiaSharpView.dll": {
             "related": ".xml"
           }
         }
       },
-      "LiveChartsCore.SkiaSharpView.WPF/2.0.0-rc6.1": {
+      "LiveChartsCore.SkiaSharpView.WPF/2.0.0-rc5.4": {
         "type": "package",
         "dependencies": {
-          "LiveChartsCore.SkiaSharpView": "2.0.0-rc6.1",
-          "SkiaSharp.HarfBuzz": "3.119.0",
-          "SkiaSharp.Views.WPF": "3.119.0"
+          "LiveChartsCore.SkiaSharpView": "2.0.0-rc5.4",
+          "SkiaSharp.HarfBuzz": "3.116.1",
+          "SkiaSharp.Views.WPF": "3.116.1"
         },
         "compile": {
-          "lib/net462/LiveChartsCore.SkiaSharpView.WPF.dll": {
+          "lib/net8.0-windows7.0/LiveChartsCore.SkiaSharpView.WPF.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net462/LiveChartsCore.SkiaSharpView.WPF.dll": {
+          "lib/net8.0-windows7.0/LiveChartsCore.SkiaSharpView.WPF.dll": {
             "related": ".xml"
           }
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
       },
       "Mono.Posix.NETStandard/1.0.0": {
         "type": "package",
@@ -305,7 +308,7 @@
           }
         }
       },
-      "runtime.android-arm.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.android-arm.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/libSystem.IO.Ports.Native.so": {
@@ -374,7 +377,7 @@
           }
         }
       },
-      "runtime.android-arm64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.android-arm64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -443,7 +446,7 @@
           }
         }
       },
-      "runtime.android-x64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.android-x64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -512,7 +515,7 @@
           }
         }
       },
-      "runtime.android-x86.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.android-x86.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -581,7 +584,7 @@
           }
         }
       },
-      "runtime.linux-arm.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.linux-arm.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -650,7 +653,7 @@
           }
         }
       },
-      "runtime.linux-arm64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.linux-arm64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -719,7 +722,7 @@
           }
         }
       },
-      "runtime.linux-bionic-arm64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.linux-bionic-arm64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -788,7 +791,7 @@
           }
         }
       },
-      "runtime.linux-bionic-x64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.linux-bionic-x64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -857,7 +860,7 @@
           }
         }
       },
-      "runtime.linux-musl-arm.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.linux-musl-arm.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -926,7 +929,7 @@
           }
         }
       },
-      "runtime.linux-musl-arm64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.linux-musl-arm64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -995,7 +998,7 @@
           }
         }
       },
-      "runtime.linux-musl-x64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.linux-musl-x64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -1064,7 +1067,7 @@
           }
         }
       },
-      "runtime.linux-x64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.linux-x64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -1133,7 +1136,7 @@
           }
         }
       },
-      "runtime.maccatalyst-arm64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.maccatalyst-arm64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -1202,7 +1205,7 @@
           }
         }
       },
-      "runtime.maccatalyst-x64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.maccatalyst-x64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -1271,28 +1274,28 @@
           }
         }
       },
-      "runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "dependencies": {
-          "runtime.android-arm.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.android-arm64.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.android-x64.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.android-x86.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.linux-arm.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.linux-arm64.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.linux-bionic-arm64.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.linux-bionic-x64.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.linux-musl-arm.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.linux-musl-arm64.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.linux-musl-x64.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.linux-x64.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.maccatalyst-arm64.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.maccatalyst-x64.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.osx-arm64.runtime.native.System.IO.Ports": "10.0.1",
-          "runtime.osx-x64.runtime.native.System.IO.Ports": "10.0.1"
+          "runtime.android-arm.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.android-arm64.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.android-x64.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.android-x86.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.linux-arm.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.linux-arm64.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.linux-bionic-arm64.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.linux-bionic-x64.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.linux-musl-arm.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.linux-musl-arm64.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.linux-musl-x64.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.linux-x64.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.maccatalyst-arm64.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.maccatalyst-x64.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.osx-arm64.runtime.native.System.IO.Ports": "10.0.3",
+          "runtime.osx-x64.runtime.native.System.IO.Ports": "10.0.3"
         }
       },
-      "runtime.osx-arm64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.osx-arm64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -1361,7 +1364,7 @@
           }
         }
       },
-      "runtime.osx-x64.runtime.native.System.IO.Ports/10.0.1": {
+      "runtime.osx-x64.runtime.native.System.IO.Ports/10.0.3": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/android-arm/native/_._": {
@@ -1430,11 +1433,11 @@
           }
         }
       },
-      "SkiaSharp/3.119.0": {
+      "SkiaSharp/3.116.1": {
         "type": "package",
         "dependencies": {
-          "SkiaSharp.NativeAssets.Win32": "3.119.0",
-          "SkiaSharp.NativeAssets.macOS": "3.119.0"
+          "SkiaSharp.NativeAssets.Win32": "3.116.1",
+          "SkiaSharp.NativeAssets.macOS": "3.116.1"
         },
         "compile": {
           "ref/net8.0/SkiaSharp.dll": {}
@@ -1445,11 +1448,11 @@
           }
         }
       },
-      "SkiaSharp.HarfBuzz/3.119.0": {
+      "SkiaSharp.HarfBuzz/3.116.1": {
         "type": "package",
         "dependencies": {
-          "HarfBuzzSharp": "8.3.1.1",
-          "SkiaSharp": "3.119.0"
+          "HarfBuzzSharp": "8.3.0.1",
+          "SkiaSharp": "3.116.1"
         },
         "compile": {
           "lib/net8.0/SkiaSharp.HarfBuzz.dll": {
@@ -1462,7 +1465,7 @@
           }
         }
       },
-      "SkiaSharp.NativeAssets.macOS/3.119.0": {
+      "SkiaSharp.NativeAssets.macOS/3.116.1": {
         "type": "package",
         "compile": {
           "lib/net8.0/_._": {}
@@ -1477,7 +1480,7 @@
           }
         }
       },
-      "SkiaSharp.NativeAssets.Win32/3.119.0": {
+      "SkiaSharp.NativeAssets.Win32/3.116.1": {
         "type": "package",
         "compile": {
           "lib/net8.0/_._": {}
@@ -1500,10 +1503,10 @@
           }
         }
       },
-      "SkiaSharp.Views.Desktop.Common/3.119.0": {
+      "SkiaSharp.Views.Desktop.Common/3.116.1": {
         "type": "package",
         "dependencies": {
-          "SkiaSharp": "3.119.0"
+          "SkiaSharp": "3.116.1"
         },
         "compile": {
           "lib/net8.0/SkiaSharp.Views.Desktop.Common.dll": {
@@ -1516,13 +1519,13 @@
           }
         }
       },
-      "SkiaSharp.Views.WPF/3.119.0": {
+      "SkiaSharp.Views.WPF/3.116.1": {
         "type": "package",
         "dependencies": {
           "OpenTK": "3.3.1",
           "OpenTK.GLWpfControl": "3.3.0",
-          "SkiaSharp": "3.119.0",
-          "SkiaSharp.Views.Desktop.Common": "3.119.0"
+          "SkiaSharp": "3.116.1",
+          "SkiaSharp.Views.Desktop.Common": "3.116.1"
         },
         "compile": {
           "lib/net462/SkiaSharp.Views.WPF.dll": {
@@ -1554,10 +1557,10 @@
           }
         }
       },
-      "System.IO.Ports/10.0.1": {
+      "System.IO.Ports/10.0.3": {
         "type": "package",
         "dependencies": {
-          "runtime.native.System.IO.Ports": "10.0.1"
+          "runtime.native.System.IO.Ports": "10.0.3"
         },
         "compile": {
           "lib/net10.0/System.IO.Ports.dll": {
@@ -1583,7 +1586,7 @@
           }
         }
       },
-      "System.Management/10.0.1": {
+      "System.Management/10.0.2": {
         "type": "package",
         "compile": {
           "lib/net10.0/System.Management.dll": {
@@ -1632,15 +1635,15 @@
         "lib/netstandard2.0/BlackSharp.Core.xml"
       ]
     },
-    "DiskInfoToolkit/1.1.1": {
-      "sha512": "fCX5rsrNT87FALYUJYwKQ3TyVrLCYuTgGuzxox22xslLQ35rv35FsfFQxXGTpBzo30IELvVBqC8KY+rGkQbwIA==",
+    "DiskInfoToolkit/1.1.2": {
+      "sha512": "vN46svt1hQDkm269p6CzfwDpb/fbyp8oNQuePcvjNSryPLfsxIJZU8amEhir+x5bsKd0ymOXTySzPwFO8o0dpw==",
       "type": "package",
-      "path": "diskinfotoolkit/1.1.1",
+      "path": "diskinfotoolkit/1.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "diskinfotoolkit.1.1.1.nupkg.sha512",
+        "diskinfotoolkit.1.1.2.nupkg.sha512",
         "diskinfotoolkit.nuspec",
         "lib/net10.0/DiskInfoToolkit.dll",
         "lib/net10.0/DiskInfoToolkit.xml",
@@ -1657,16 +1660,16 @@
         "packageicon.png"
       ]
     },
-    "HarfBuzzSharp/8.3.1.1": {
-      "sha512": "tLZN66oe/uiRPTZfrCU4i8ScVGwqHNh5MHrXj0yVf4l7Mz0FhTGnQ71RGySROTmdognAs0JtluHkL41pIabWuQ==",
+    "HarfBuzzSharp/8.3.0.1": {
+      "sha512": "rwLpl+W6uqu0DuvzqNhTMuFcXfy1Vc0uq0YXgPEmtTSfeUSAye1FcARrm2YIPOSiCBwBOGu3cLvMX5Fp6OKe2g==",
       "type": "package",
-      "path": "harfbuzzsharp/8.3.1.1",
+      "path": "harfbuzzsharp/8.3.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.txt",
         "README.md",
-        "harfbuzzsharp.8.3.1.1.nupkg.sha512",
+        "harfbuzzsharp.8.3.0.1.nupkg.sha512",
         "harfbuzzsharp.nuspec",
         "icon.png",
         "lib/net462/HarfBuzzSharp.dll",
@@ -1696,10 +1699,10 @@
         "lib/netstandard2.1/HarfBuzzSharp.pdb"
       ]
     },
-    "HarfBuzzSharp.NativeAssets.macOS/8.3.1.1": {
-      "sha512": "jbtCsgftcaFLCA13tVKo5iWdElJScrulLTKJre36O4YQTIlwDtPPqhRZNk+Y0vv4D1gxbscasGRucUDfS44ofQ==",
+    "HarfBuzzSharp.NativeAssets.macOS/8.3.0.1": {
+      "sha512": "2o6U05LAmK+rwX7TvmJ2X0anXJG2hSE7kHVmCshhHy0tKfByJ5ykBacvhmmooHchlOwq15KBZeROGafCT8nN+g==",
       "type": "package",
-      "path": "harfbuzzsharp.nativeassets.macos/8.3.1.1",
+      "path": "harfbuzzsharp.nativeassets.macos/8.3.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1708,7 +1711,7 @@
         "THIRD-PARTY-NOTICES.txt",
         "buildTransitive/net462/HarfBuzzSharp.NativeAssets.macOS.targets",
         "buildTransitive/net8.0-macos14.0/HarfBuzzSharp.NativeAssets.macOS.targets",
-        "harfbuzzsharp.nativeassets.macos.8.3.1.1.nupkg.sha512",
+        "harfbuzzsharp.nativeassets.macos.8.3.0.1.nupkg.sha512",
         "harfbuzzsharp.nativeassets.macos.nuspec",
         "icon.png",
         "lib/net462/_._",
@@ -1720,10 +1723,10 @@
         "runtimes/osx/native/libHarfBuzzSharp.dylib"
       ]
     },
-    "HarfBuzzSharp.NativeAssets.Win32/8.3.1.1": {
-      "sha512": "UsJtQsfAJoFDZrXc4hCUfRPMqccfKZ0iumJ/upcUjz/cmsTgVFGNEL5yaJWmkqsuFYdMWbj/En5/kS4PFl9hBA==",
+    "HarfBuzzSharp.NativeAssets.Win32/8.3.0.1": {
+      "sha512": "ow0DtGEUjo65qhiI22of7qiVbN1xDFsZ5P5xJljRmGZ5WSxNy+1batLNJFGxahqhB1MTHYV8kAXf0GqC8WaevQ==",
       "type": "package",
-      "path": "harfbuzzsharp.nativeassets.win32/8.3.1.1",
+      "path": "harfbuzzsharp.nativeassets.win32/8.3.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1731,7 +1734,7 @@
         "README.md",
         "THIRD-PARTY-NOTICES.txt",
         "buildTransitive/net462/HarfBuzzSharp.NativeAssets.Win32.targets",
-        "harfbuzzsharp.nativeassets.win32.8.3.1.1.nupkg.sha512",
+        "harfbuzzsharp.nativeassets.win32.8.3.0.1.nupkg.sha512",
         "harfbuzzsharp.nativeassets.win32.nuspec",
         "icon.png",
         "lib/net462/_._",
@@ -1766,14 +1769,14 @@
         "lib/netstandard2.0/HidSharp.pdb"
       ]
     },
-    "LibreHardwareMonitorLib/0.9.5": {
-      "sha512": "vrmUc8r1l3x+AYilwSP35yQbo9V3BfVoRpwVAR4qRgKGJ2muSDUV+OcsJw5rkphadJeSMqcyV/rZRtT8n4GDCA==",
+    "LibreHardwareMonitorLib/0.9.6": {
+      "sha512": "W4hQ5Ja51/1cEDZnh9kG5UHFBwjjY2+oIpSUhSsgeYXKRKezrkw3sEFrhQkrOuo53xkXyfWV8ZErMqQuGqWIMQ==",
       "type": "package",
-      "path": "librehardwaremonitorlib/0.9.5",
+      "path": "librehardwaremonitorlib/0.9.6",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "librehardwaremonitorlib.0.9.5.nupkg.sha512",
+        "librehardwaremonitorlib.0.9.6.nupkg.sha512",
         "librehardwaremonitorlib.nuspec",
         "packageicon.png",
         "ref/net10.0/LibreHardwareMonitorLib.dll",
@@ -1818,10 +1821,10 @@
         "runtimes/win-x86/lib/netstandard2.0/LibreHardwareMonitorLib.xml"
       ]
     },
-    "LiveChartsCore/2.0.0-rc6.1": {
-      "sha512": "yaeFXCpH7AspjMKzXNdfr1Ikg06Dm+a4XRW/8wBtHAa/TEVJLY8yBsG6pNpjrPk+FpRaSImlNYw7pv298W1XPw==",
+    "LiveChartsCore/2.0.0-rc5.4": {
+      "sha512": "1hEEvMndEP5urodx+Epu2lwvJr0ZG246FR7jMYtE9/snYwbUKoItq6a4cTzyeyFPi9fcBsjtgwAWA8uL/2s73g==",
       "type": "package",
-      "path": "livechartscore/2.0.0-rc6.1",
+      "path": "livechartscore/2.0.0-rc5.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1830,6 +1833,8 @@
         "lib/net462/LiveChartsCore.xml",
         "lib/net6.0-windows10.0.19041/LiveChartsCore.dll",
         "lib/net6.0-windows10.0.19041/LiveChartsCore.xml",
+        "lib/net6.0-windows7.0/LiveChartsCore.dll",
+        "lib/net6.0-windows7.0/LiveChartsCore.xml",
         "lib/net8.0-android34.0/LiveChartsCore.dll",
         "lib/net8.0-android34.0/LiveChartsCore.xml",
         "lib/net8.0-ios18.0/LiveChartsCore.dll",
@@ -1838,26 +1843,30 @@
         "lib/net8.0-maccatalyst18.0/LiveChartsCore.xml",
         "lib/net8.0-windows10.0.19041/LiveChartsCore.dll",
         "lib/net8.0-windows10.0.19041/LiveChartsCore.xml",
+        "lib/net8.0-windows7.0/LiveChartsCore.dll",
+        "lib/net8.0-windows7.0/LiveChartsCore.xml",
         "lib/net8.0/LiveChartsCore.dll",
         "lib/net8.0/LiveChartsCore.xml",
         "lib/netstandard2.0/LiveChartsCore.dll",
         "lib/netstandard2.0/LiveChartsCore.xml",
         "lib/netstandard2.1/LiveChartsCore.dll",
         "lib/netstandard2.1/LiveChartsCore.xml",
-        "livechartscore.2.0.0-rc6.1.nupkg.sha512",
+        "livechartscore.2.0.0-rc5.4.nupkg.sha512",
         "livechartscore.nuspec"
       ]
     },
-    "LiveChartsCore.SkiaSharpView/2.0.0-rc6.1": {
-      "sha512": "FU+0uIxL3xR631+4aN296L+M3f6qWrIEUJr8+SSmcGVVa27iB0+ko55IRInZGdYlmaR+8mRTPAXObXT6/1EMDQ==",
+    "LiveChartsCore.SkiaSharpView/2.0.0-rc5.4": {
+      "sha512": "lpylapUJHvAagM4pmcwCvx3ObfL2FlITtI0u8LkKlLEnzhJYg17Tcxcgd6R/mItQlCdICG0PFDVNUDnZEwhFuw==",
       "type": "package",
-      "path": "livechartscore.skiasharpview/2.0.0-rc6.1",
+      "path": "livechartscore.skiasharpview/2.0.0-rc5.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "icon.png",
         "lib/net462/LiveChartsCore.SkiaSharpView.dll",
         "lib/net462/LiveChartsCore.SkiaSharpView.xml",
+        "lib/net6.0-windows7.0/LiveChartsCore.SkiaSharpView.dll",
+        "lib/net6.0-windows7.0/LiveChartsCore.SkiaSharpView.xml",
         "lib/net8.0-android34.0/LiveChartsCore.SkiaSharpView.dll",
         "lib/net8.0-android34.0/LiveChartsCore.SkiaSharpView.xml",
         "lib/net8.0-ios18.0/LiveChartsCore.SkiaSharpView.dll",
@@ -1868,20 +1877,22 @@
         "lib/net8.0-windows10.0.19041/LiveChartsCore.SkiaSharpView.xml",
         "lib/net8.0-windows10.0.20348/LiveChartsCore.SkiaSharpView.dll",
         "lib/net8.0-windows10.0.20348/LiveChartsCore.SkiaSharpView.xml",
+        "lib/net8.0-windows7.0/LiveChartsCore.SkiaSharpView.dll",
+        "lib/net8.0-windows7.0/LiveChartsCore.SkiaSharpView.xml",
         "lib/net8.0/LiveChartsCore.SkiaSharpView.dll",
         "lib/net8.0/LiveChartsCore.SkiaSharpView.xml",
         "lib/netstandard2.0/LiveChartsCore.SkiaSharpView.dll",
         "lib/netstandard2.0/LiveChartsCore.SkiaSharpView.xml",
         "lib/netstandard2.1/LiveChartsCore.SkiaSharpView.dll",
         "lib/netstandard2.1/LiveChartsCore.SkiaSharpView.xml",
-        "livechartscore.skiasharpview.2.0.0-rc6.1.nupkg.sha512",
+        "livechartscore.skiasharpview.2.0.0-rc5.4.nupkg.sha512",
         "livechartscore.skiasharpview.nuspec"
       ]
     },
-    "LiveChartsCore.SkiaSharpView.WPF/2.0.0-rc6.1": {
-      "sha512": "8OjtKoZc1Hnr6mXPQM5pnjo0A/SW07K/yjTvXCToJOyPyGj8GrWlR3VabjN+jVuf0IlwZU8Ewzc1QDBe9sI7wQ==",
+    "LiveChartsCore.SkiaSharpView.WPF/2.0.0-rc5.4": {
+      "sha512": "TXlnj+wbmt4dXq21uFFPRg+lTjFhmMqo1Gqi+IAkNsy/UFB4cyynCmZzVFAgEzfqQ/dJ4ZKwfsXWMqbtI28NHQ==",
       "type": "package",
-      "path": "livechartscore.skiasharpview.wpf/2.0.0-rc6.1",
+      "path": "livechartscore.skiasharpview.wpf/2.0.0-rc5.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1890,9 +1901,13 @@
         "lib/net462/LiveChartsCore.SkiaSharpView.WPF.xml",
         "lib/net6.0-windows10.0.19041/LiveChartsCore.SkiaSharpView.WPF.dll",
         "lib/net6.0-windows10.0.19041/LiveChartsCore.SkiaSharpView.WPF.xml",
+        "lib/net6.0-windows7.0/LiveChartsCore.SkiaSharpView.WPF.dll",
+        "lib/net6.0-windows7.0/LiveChartsCore.SkiaSharpView.WPF.xml",
         "lib/net8.0-windows10.0.19041/LiveChartsCore.SkiaSharpView.WPF.dll",
         "lib/net8.0-windows10.0.19041/LiveChartsCore.SkiaSharpView.WPF.xml",
-        "livechartscore.skiasharpview.wpf.2.0.0-rc6.1.nupkg.sha512",
+        "lib/net8.0-windows7.0/LiveChartsCore.SkiaSharpView.WPF.dll",
+        "lib/net8.0-windows7.0/LiveChartsCore.SkiaSharpView.WPF.xml",
+        "livechartscore.skiasharpview.wpf.2.0.0-rc5.4.nupkg.sha512",
         "livechartscore.skiasharpview.wpf.nuspec"
       ]
     },
@@ -1981,17 +1996,17 @@
         "ramspdtoolkit-ndd.nuspec"
       ]
     },
-    "runtime.android-arm.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "yhEOSqffj06PjTKMxkwybSXqBs2O5lbu9FG8ED6SDWvGsGeKJ4lNYo/hkHUE0li3Crw85FiCQPgrzd9NXEIvhg==",
+    "runtime.android-arm.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "6W4qZX0X7FF+PHM9Kaa5ZsTLcGJAzCU7FB4Tjy1vTg2rUIEjDqijWTtpz8vY6gBzZaG+tD0/EKUyGnfq6d/d/Q==",
       "type": "package",
-      "path": "runtime.android-arm.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.android-arm.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.android-arm.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.android-arm.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.android-arm.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/libSystem.IO.Ports.Native.so",
         "runtimes/android-arm64/native/_._",
@@ -2012,17 +2027,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.android-arm64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "NJy+C4G7Fon+zq4D8nDxYKAfwkZfYZeKmdA1oKaNxjnci7TJ8UDy1iy1KfQXdt6X5hYsP4B0uSICZAW4Yiim2w==",
+    "runtime.android-arm64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "4OdNg2Du1kvm0b4tSErkA4wfH32YmgUqeSLzekk6NdCR61brCp4vttTJl0epZMwbRppXuy/jY7pV0WtP4ymnfQ==",
       "type": "package",
-      "path": "runtime.android-arm64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.android-arm64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.android-arm64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.android-arm64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.android-arm64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/libSystem.IO.Ports.Native.so",
@@ -2043,17 +2058,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.android-x64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "h0FLZqO8qsBM1XN/glkcLh6fIcGte+xvIjJ2wxck/m9eFLGnDYNPOxCyiQtbCZBjTweztaP6JOW5SoS9l6cHYw==",
+    "runtime.android-x64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "nP7xJSDSqRktV4kEd0kr4n0xhzJFuQjh7L/AgrKB3C4QK5TA/8NimJmTl1ogngvnXn2vilH2Hk+keBIvuoGWCA==",
       "type": "package",
-      "path": "runtime.android-x64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.android-x64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.android-x64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.android-x64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.android-x64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2074,17 +2089,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.android-x86.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "2zI0YJZPJ0OA/RvOAkdtArbS3VGyeNU43Xeb5YYLsFujuit++IcT2KDKRgfgMLb3INMEx4fig9TZD+qm7hM8jg==",
+    "runtime.android-x86.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "f/neqijoVpgl/PcrXYeLNfCC2t74XYIcaHvtSaF3zaIdJ3hf5wrwRC9gzYLXHRLg/j4DRsCHEw8rlux/dNh7XA==",
       "type": "package",
-      "path": "runtime.android-x86.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.android-x86.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.android-x86.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.android-x86.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.android-x86.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2105,17 +2120,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.linux-arm.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "1UCmlmXa/dAzZjls/L7J61fKqaRU6iz6OXE7p8tOO74GQFGJ5PUkDJNU5mJ1aW3ex0ssd0iab5eaKC66ktJzXA==",
+    "runtime.linux-arm.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "cwiQmy95Zd42K4kMzDt8GkXNKHWDkRZIIyb3MteRrgJKubH2DMA6VY3JiFeR+1hQ7i31Ck+dYyt8wUkElZ/NrQ==",
       "type": "package",
-      "path": "runtime.linux-arm.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.linux-arm.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.linux-arm.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.linux-arm.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.linux-arm.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2136,17 +2151,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.linux-arm64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "USgWzDeY9xtXPRtsMzpb4jfJb7OnhbzidFvv2y9lWCqEKD4zTMW3i/f5b/CrHxs7uCzTBWoGszd98RmcI/CPag==",
+    "runtime.linux-arm64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "cEx+Xm0ZNPsuoYTFwXZ6qRstwXQ7vJjbb3jWzo5s5xIeEgpTDdfiUjTgK3Gl618mWgb7+Gn6Vt5pT07RxFC28Q==",
       "type": "package",
-      "path": "runtime.linux-arm64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.linux-arm64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.linux-arm64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.linux-arm64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.linux-arm64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2167,17 +2182,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.linux-bionic-arm64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "4VVaJ2ZhgnuVEgDxbBIFvZNJg1toN6c0o3LpJSCKdkJQyycZQtvWtPD5bpWrtpIR84DjdoXo+Qaq6qlcsC4EdQ==",
+    "runtime.linux-bionic-arm64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "kB21sNzlKgTj3V/LZhnTLFuViiGKtkiUG2GdEW+z3jdeUtRoxqBBXryzMqy0oUOy5idBW2pA6bh+iLGaj+GThA==",
       "type": "package",
-      "path": "runtime.linux-bionic-arm64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.linux-bionic-arm64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.linux-bionic-arm64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.linux-bionic-arm64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.linux-bionic-arm64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2198,17 +2213,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.linux-bionic-x64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "Nw3lL6Y6ipQd169pA/Y+cUSXUYLOaf3K6k35EscJcHcW4+xEd79Z48jiQAMKd3F5cpgDaU9y4pQZih88bni+yw==",
+    "runtime.linux-bionic-x64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "/Ud7EYdpnBGJ/x7DdqVFEJOQtEcf9rsD6/1iyUBJNfhhs8JljZLewJHp1cXr1DVCaWWc9jSWIc4g+QpMct/22A==",
       "type": "package",
-      "path": "runtime.linux-bionic-x64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.linux-bionic-x64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.linux-bionic-x64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.linux-bionic-x64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.linux-bionic-x64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2229,17 +2244,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.linux-musl-arm.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "frG5f9nQZIWeyH549jBpA1URI/hXN+JY4gNwp0GSSbTxCWtQrcSNr4Zjr/KATznR9sRKwawEIZIRqadckPq1Sw==",
+    "runtime.linux-musl-arm.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "pBubukkmXD9e4Ju004bEHL3TE5mYahONCVwrJ5b+7/cj8smSY2H5sKTyURiVF1EfX55yORKyTyQ3dALA5yTTlg==",
       "type": "package",
-      "path": "runtime.linux-musl-arm.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.linux-musl-arm.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.linux-musl-arm.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.linux-musl-arm.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.linux-musl-arm.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2260,17 +2275,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.linux-musl-arm64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "xn3KKFgfG1JhtGW31/IUjOoVdeus8eNZG6YnA/uZDqn3kq5G/PH7Cb7ez8xdr44II/gX41EkkClgI6hMBIGY1Q==",
+    "runtime.linux-musl-arm64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "+FR6SvpZya66Wv26MVEK4l2gnjfZnBVUz675eaTcMQ/KWAy+GMaPyhRaBIMnQJf5gfuu3x1qgeAzpmeFkOPGBw==",
       "type": "package",
-      "path": "runtime.linux-musl-arm64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.linux-musl-arm64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.linux-musl-arm64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.linux-musl-arm64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.linux-musl-arm64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2291,17 +2306,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.linux-musl-x64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "XFjkRBiuuo0RC0MM1waVjLQoTorpJn1j9JjmW0/K3o26u5tj9ay8R9aQKc43OiCu5UU8U11uknRMJErLzwd1rg==",
+    "runtime.linux-musl-x64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "Ee1XnOSKgeJGBcnd7LLLkyXEbE/JcpQ3pUlbPXqugl0YD55jVubpYebzGYI+ilrnBLCRiV0BR822b2XmerIKGw==",
       "type": "package",
-      "path": "runtime.linux-musl-x64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.linux-musl-x64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.linux-musl-x64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.linux-musl-x64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.linux-musl-x64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2322,17 +2337,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.linux-x64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "iD2eWk6EYdJIwEgw7srCwEPwz4rFm6EDck7G3c6WuePC+bmqcmttZHgsS4YlishnVuK7K2C2L5Eu4lBcX3td+A==",
+    "runtime.linux-x64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "U+Zr1KuBDIIwgR2gTMFbBAtkr4WnKdEXxmknPa3X8Qy6oCi4+MTRmq2zmTh7wxXQXTdmhfXg2tyy7DuVHtB+xQ==",
       "type": "package",
-      "path": "runtime.linux-x64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.linux-x64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.linux-x64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.linux-x64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.linux-x64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2353,17 +2368,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.maccatalyst-arm64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "ysG788Hf97ENpVRWh7jLR4qBfD4Kr6JKo+kn7c5cbEO7xcNS0Z9iYWiYVFKGkUFQc7zyPJNsbbNnaILTogbMJA==",
+    "runtime.maccatalyst-arm64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "9yTgh3ZKCBTGEO4YS76g/K15s2qSdeEZDqWteixUPeRsETsuBUwUPF39Fk39OPlRgwhqEuhtHy1Hf6BSOETfAg==",
       "type": "package",
-      "path": "runtime.maccatalyst-arm64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.maccatalyst-arm64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.maccatalyst-arm64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.maccatalyst-arm64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.maccatalyst-arm64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2384,17 +2399,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.maccatalyst-x64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "c5Czo6RusXKucg35oKHQQSfZkZ2MdvHMz/kQvyK5Xg7Nf5DPPUIdd/hCMpfjZImKCLiwLgaZ0sLLqDSnKiNZKg==",
+    "runtime.maccatalyst-x64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "0gxqUZYQ1T1o5VzgyEMKiSPKJtPbleF2nbjZa5QKZQvPgSlrZFL+FrW4LywIk2scOpXu+Vd5Mv8AGGV7slhYWA==",
       "type": "package",
-      "path": "runtime.maccatalyst-x64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.maccatalyst-x64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.maccatalyst-x64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.maccatalyst-x64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.maccatalyst-x64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2415,32 +2430,32 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "Wiv5G0Qdmf2/gIsw7gtzGGiiOhUxn2LpS7CHdGtegMf/vGVkKFdfZOJpdwbrS7X/ld8Am20auAPRUzLPCaESUg==",
+    "runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "7U3HW0JzAeg9PWaYBcyWLFMq2RSexgJ8uVCR3E2QVJJ/IZnRT0wYRhyEx3zBSbKYzN3KE6MDiRd6CN4hR7YkqA==",
       "type": "package",
-      "path": "runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.native.system.io.ports.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.osx-arm64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "BeZlb2yS+IGcRJWMawovOee+yEh6rqMXrx2Gw2WOcG1/N+WkJa6lNMhsw90lsLIm9R4vl21RsSvoWwG7/uIjMw==",
+    "runtime.osx-arm64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "qnEjXlIazxaRAhBet0EupWoJQ9PKsXjThpMKGP/ZsCjZgHEb+zs9wft82wY27OagyPOCg9D4hJHWKt5LTbJNZg==",
       "type": "package",
-      "path": "runtime.osx-arm64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.osx-arm64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.osx-arm64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.osx-arm64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.osx-arm64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2461,17 +2476,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "runtime.osx-x64.runtime.native.System.IO.Ports/10.0.1": {
-      "sha512": "CB4OcbQwWX+/qKbhKgcGRWl9Mg7T0pK39nl6KgOw7Akfb37eudFOaT9klv/MMsLN6kTq6CMIRVd0+kD4Pd2szQ==",
+    "runtime.osx-x64.runtime.native.System.IO.Ports/10.0.3": {
+      "sha512": "L1gcOL5kcfeeujKQbqJmpeTLsT0c6DeaJ9w6PY9oZ+/WESyya+Zj7StKguXR5j93o3o86FjcN05yufpoCz7R2g==",
       "type": "package",
-      "path": "runtime.osx-x64.runtime.native.system.io.ports/10.0.1",
+      "path": "runtime.osx-x64.runtime.native.system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "runtime.osx-x64.runtime.native.system.io.ports.10.0.1.nupkg.sha512",
+        "runtime.osx-x64.runtime.native.system.io.ports.10.0.3.nupkg.sha512",
         "runtime.osx-x64.runtime.native.system.io.ports.nuspec",
         "runtimes/android-arm/native/_._",
         "runtimes/android-arm64/native/_._",
@@ -2492,10 +2507,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "SkiaSharp/3.119.0": {
-      "sha512": "gR9yVoOta2Mc1Rxt15LD65AckfHMfwjIs/3kkD59C9bT2nYYISsE6uz3t4aMPNHA6CgsIL0Ssn+jE5OVilZ1yw==",
+    "SkiaSharp/3.116.1": {
+      "sha512": "DNDwbRjP+aMo27dV2h/uHCVTcWubWWxHnPLiePNyl24f4Pv43mQ8AQQeseOrKR+J3AOCEs6t0sUjo0aa3j3RWQ==",
       "type": "package",
-      "path": "skiasharp/3.119.0",
+      "path": "skiasharp/3.116.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2540,14 +2555,14 @@
         "ref/net8.0/SkiaSharp.dll",
         "ref/netstandard2.0/SkiaSharp.dll",
         "ref/netstandard2.1/SkiaSharp.dll",
-        "skiasharp.3.119.0.nupkg.sha512",
+        "skiasharp.3.116.1.nupkg.sha512",
         "skiasharp.nuspec"
       ]
     },
-    "SkiaSharp.HarfBuzz/3.119.0": {
-      "sha512": "5ocGzl+RYEZFnUPUbModshnEFvKTku4hTtOBsLvy5MCK2KAHjq5Nw2+uAVUx79Rjh0z8fTojT6ZVav8MJgW0ug==",
+    "SkiaSharp.HarfBuzz/3.116.1": {
+      "sha512": "ibDG1+quN86vBd9ztjDAC9wnvS1nRZ6ydTUOSod4NsRHWdLLGzWYn1IOF4Cg9iJh5cQHdpzhUZBQE0JMKznrow==",
       "type": "package",
-      "path": "skiasharp.harfbuzz/3.119.0",
+      "path": "skiasharp.harfbuzz/3.116.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2564,21 +2579,20 @@
         "lib/netstandard2.0/SkiaSharp.HarfBuzz.pdb",
         "lib/netstandard2.1/SkiaSharp.HarfBuzz.dll",
         "lib/netstandard2.1/SkiaSharp.HarfBuzz.pdb",
-        "skiasharp.harfbuzz.3.119.0.nupkg.sha512",
+        "skiasharp.harfbuzz.3.116.1.nupkg.sha512",
         "skiasharp.harfbuzz.nuspec"
       ]
     },
-    "SkiaSharp.NativeAssets.macOS/3.119.0": {
-      "sha512": "YE1vNn0Nyw2PWtv7hw1PYkKJO0itFiQp9vSqGppZUKzQJqwp28a2jgdCMPfYtOiR8KCnDgZqQoynqJRRaE2ZVg==",
+    "SkiaSharp.NativeAssets.macOS/3.116.1": {
+      "sha512": "3KPvpKysDmEMt0NnAZPX5U6KFk0LmG/72/IjAIJemIksIZ0Tjs9pGpr3L+zboVCv1MLVoJLKl3nJDXUG6Jda6A==",
       "type": "package",
-      "path": "skiasharp.nativeassets.macos/3.119.0",
+      "path": "skiasharp.nativeassets.macos/3.116.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.txt",
         "README.md",
         "THIRD-PARTY-NOTICES.txt",
-        "build/net462/SkiaSharp.NativeAssets.macOS.targets",
         "buildTransitive/net462/SkiaSharp.NativeAssets.macOS.targets",
         "buildTransitive/net8.0-macos14.0/SkiaSharp.NativeAssets.macOS.targets",
         "icon.png",
@@ -2589,21 +2603,20 @@
         "lib/netstandard2.0/_._",
         "lib/netstandard2.1/_._",
         "runtimes/osx/native/libSkiaSharp.dylib",
-        "skiasharp.nativeassets.macos.3.119.0.nupkg.sha512",
+        "skiasharp.nativeassets.macos.3.116.1.nupkg.sha512",
         "skiasharp.nativeassets.macos.nuspec"
       ]
     },
-    "SkiaSharp.NativeAssets.Win32/3.119.0": {
-      "sha512": "IwC9yx36lOdXVT2DjgmWHl1qkVspfj8ctd4+li8CNnvqdfaTolXCOh6TLznURcPAvzatx9K/tLOB7zT6T8EA9w==",
+    "SkiaSharp.NativeAssets.Win32/3.116.1": {
+      "sha512": "dRQ75MCI8oz6zAs2Y1w6pq6ARs4MhdNG+gf3doOxOxdnueDXffQLGQIxON54GDoxc0WjKOoHMKBR4DhaduwwQw==",
       "type": "package",
-      "path": "skiasharp.nativeassets.win32/3.119.0",
+      "path": "skiasharp.nativeassets.win32/3.116.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.txt",
         "README.md",
         "THIRD-PARTY-NOTICES.txt",
-        "build/net462/SkiaSharp.NativeAssets.Win32.targets",
         "buildTransitive/net462/SkiaSharp.NativeAssets.Win32.targets",
         "icon.png",
         "lib/net462/_._",
@@ -2616,14 +2629,14 @@
         "runtimes/win-arm64/native/libSkiaSharp.dll",
         "runtimes/win-x64/native/libSkiaSharp.dll",
         "runtimes/win-x86/native/libSkiaSharp.dll",
-        "skiasharp.nativeassets.win32.3.119.0.nupkg.sha512",
+        "skiasharp.nativeassets.win32.3.116.1.nupkg.sha512",
         "skiasharp.nativeassets.win32.nuspec"
       ]
     },
-    "SkiaSharp.Views.Desktop.Common/3.119.0": {
-      "sha512": "KST7Q3n+X5BhDj1aKTJXk9tITWWznveka9n+pBjOtE53Omc+wlZR0s4fQStybWCVVaWG9eaeOMaw93J3zEMklA==",
+    "SkiaSharp.Views.Desktop.Common/3.116.1": {
+      "sha512": "/ZDg00zVgjN/N5ghDCnP0+9TfOSmMZkMtnoQpaigsBc4Ghg9Qe+iimZuA5nrEWgaygW64LnVan+p8T1wDtS+kQ==",
       "type": "package",
-      "path": "skiasharp.views.desktop.common/3.119.0",
+      "path": "skiasharp.views.desktop.common/3.116.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2644,14 +2657,14 @@
         "lib/netstandard2.0/SkiaSharp.Views.Desktop.Common.pdb",
         "lib/netstandard2.1/SkiaSharp.Views.Desktop.Common.dll",
         "lib/netstandard2.1/SkiaSharp.Views.Desktop.Common.pdb",
-        "skiasharp.views.desktop.common.3.119.0.nupkg.sha512",
+        "skiasharp.views.desktop.common.3.116.1.nupkg.sha512",
         "skiasharp.views.desktop.common.nuspec"
       ]
     },
-    "SkiaSharp.Views.WPF/3.119.0": {
-      "sha512": "1Dmj9RlBW/gvmJwSUER+N9plA/kcWOgiL5g3q2DB+USVQav8rQtfOZIQZ1Wt/AqhwepOacv1M6pZKDWtXmwDAg==",
+    "SkiaSharp.Views.WPF/3.116.1": {
+      "sha512": "28vXtX/56h1RCmTNubJQcrVNxmx2aV8wGbyUjZOnkocNRHHfG7zoChYHTjwBt7R7TCojTo3RbLBkcP/CLtJLNw==",
       "type": "package",
-      "path": "skiasharp.views.wpf/3.119.0",
+      "path": "skiasharp.views.wpf/3.116.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2664,7 +2677,7 @@
         "lib/net6.0-windows10.0.19041/SkiaSharp.Views.WPF.pdb",
         "lib/net8.0-windows10.0.19041/SkiaSharp.Views.WPF.dll",
         "lib/net8.0-windows10.0.19041/SkiaSharp.Views.WPF.pdb",
-        "skiasharp.views.wpf.3.119.0.nupkg.sha512",
+        "skiasharp.views.wpf.3.116.1.nupkg.sha512",
         "skiasharp.views.wpf.nuspec"
       ]
     },
@@ -2712,10 +2725,10 @@
         "version.txt"
       ]
     },
-    "System.IO.Ports/10.0.1": {
-      "sha512": "2aDgBhEsZzlJBYqcI7bvEL6IsWq1KWGNdilscFIxW48QBoTQbxES0aVhB8YmvVZXwEVrcUQb4XNShBmsqg/l3Q==",
+    "System.IO.Ports/10.0.3": {
+      "sha512": "Zs04mZ/dQtaFQ+hpQNDtijBs+6aM9j2fQPp8zNZTfh8DboVNNv7Sw6gH00hT+PVcAhEozlfT+n59Svm6Ug8ROA==",
       "type": "package",
-      "path": "system.io.ports/10.0.1",
+      "path": "system.io.ports/10.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2748,15 +2761,15 @@
         "runtimes/win/lib/net8.0/System.IO.Ports.xml",
         "runtimes/win/lib/net9.0/System.IO.Ports.dll",
         "runtimes/win/lib/net9.0/System.IO.Ports.xml",
-        "system.io.ports.10.0.1.nupkg.sha512",
+        "system.io.ports.10.0.3.nupkg.sha512",
         "system.io.ports.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Management/10.0.1": {
-      "sha512": "/mywt9LtfYM+QbnIPPqdES/qWWU3tkorSDHPX99KYhCTtxdjGFmLcz7QwpAAeBKU0o+rZzEcpKZlrtEr1Xq39g==",
+    "System.Management/10.0.2": {
+      "sha512": "eFftuy3i844lVKCb4lJvvjKfcvPVcW8KrAdSaIOcRL42/Fisj46hwUs8Bky+4avzMe5Snm5t7aSayOI1mybYXg==",
       "type": "package",
-      "path": "system.management/10.0.1",
+      "path": "system.management/10.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2780,7 +2793,7 @@
         "runtimes/win/lib/net8.0/System.Management.xml",
         "runtimes/win/lib/net9.0/System.Management.dll",
         "runtimes/win/lib/net9.0/System.Management.xml",
-        "system.management.10.0.1.nupkg.sha512",
+        "system.management.10.0.2.nupkg.sha512",
         "system.management.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -2788,8 +2801,8 @@
   },
   "projectFileDependencyGroups": {
     "net10.0-windows7.0": [
-      "LibreHardwareMonitorLib >= 0.9.5",
-      "LiveChartsCore.SkiaSharpView.WPF >= 2.0.0-rc6.1"
+      "LibreHardwareMonitorLib >= 0.9.6",
+      "LiveChartsCore.SkiaSharpView.WPF >= 2.0.0-rc5.4"
     ]
   },
   "packageFolders": {
@@ -2836,7 +2849,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net10.0-windows7.0": {
@@ -2844,11 +2857,11 @@
         "dependencies": {
           "LibreHardwareMonitorLib": {
             "target": "Package",
-            "version": "[0.9.5, )"
+            "version": "[0.9.6, )"
           },
           "LiveChartsCore.SkiaSharpView.WPF": {
             "target": "Package",
-            "version": "[2.0.0-rc6.1, )"
+            "version": "[2.0.0-rc5.4, )"
           }
         },
         "imports": [
@@ -2870,7 +2883,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.104/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -3169,20 +3182,10 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Пакет \"LiveChartsCore.SkiaSharpView.WPF 2.0.0-rc6.1\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net10.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
-      "libraryId": "LiveChartsCore.SkiaSharpView.WPF",
-      "targetGraphs": [
-        "net10.0-windows"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
       "message": "Пакет \"OpenTK 3.3.1\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net10.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
       "libraryId": "OpenTK",
       "targetGraphs": [
-        "net10.0-windows"
+        "net10.0-windows7.0"
       ]
     },
     {
@@ -3192,17 +3195,17 @@
       "message": "Пакет \"OpenTK.GLWpfControl 3.3.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net10.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
       "libraryId": "OpenTK.GLWpfControl",
       "targetGraphs": [
-        "net10.0-windows"
+        "net10.0-windows7.0"
       ]
     },
     {
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Пакет \"SkiaSharp.Views.WPF 3.119.0\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net10.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
+      "message": "Пакет \"SkiaSharp.Views.WPF 3.116.1\" был восстановлен с помощью \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\", а не целевой платформы проекта \"net10.0-windows7.0\". Этот пакет может быть не полностью совместим с вашим проектом.",
       "libraryId": "SkiaSharp.Views.WPF",
       "targetGraphs": [
-        "net10.0-windows"
+        "net10.0-windows7.0"
       ]
     }
   ]
