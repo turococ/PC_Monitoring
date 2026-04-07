@@ -3,6 +3,7 @@ using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.WPF;
 using LiveChartsCore.SkiaSharpView.Painting;
+using PcMonitoring.Data;
 using SkiaSharp;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,6 +16,15 @@ namespace PcMonitoring.ViewModel
     {
         private readonly HardwareReader _reader;
         private readonly DispatcherTimer _timer;
+        private readonly MetricsDatabase _database;
+        private readonly Action<string, string> _showNotification;
+
+        // Для агрегации метрик (запись в БД раз в 60 секунд)
+        private float? _aggCpuLoadSum, _aggCpuTempSum, _aggGpuLoadSum, _aggGpuTempSum, _aggRamSum;
+        private int _aggCount;
+        private readonly object _aggLock = new();
+
+        public MetricsDatabase Database => _database;
 
         private int _cpuCriticalTemp = 90;
         public int CpuCriticalTemp
@@ -89,9 +99,11 @@ namespace PcMonitoring.ViewModel
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public MainViewModel()
+        public MainViewModel(Action<string, string> showNotification)
         {
+            _showNotification = showNotification;
             _reader = new HardwareReader();
+            _database = new MetricsDatabase();
 
             var specs = _reader.ReadPcSpec();
             Cpu = specs.Cpu;
@@ -181,6 +193,39 @@ namespace PcMonitoring.ViewModel
             };
             _timer.Tick += (s, e) => UpdateMetrics();
             _timer.Start();
+
+            // Таймер для записи агрегированных метрик в БД каждые 60 секунд
+            var dbTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(60) };
+            dbTimer.Tick += (s, e) => FlushAggregatedMetrics();
+            dbTimer.Start();
+        }
+
+        private void FlushAggregatedMetrics()
+        {
+            lock (_aggLock)
+            {
+                if (_aggCount == 0) return;
+
+                var avgCpuLoad = _aggCpuLoadSum / _aggCount;
+                var avgCpuTemp = _aggCpuTempSum / _aggCount;
+                var avgGpuLoad = _aggGpuLoadSum / _aggCount;
+                var avgGpuTemp = _aggGpuTempSum / _aggCount;
+                var avgRam = _aggRamSum / _aggCount;
+
+                _database.InsertMetric(
+                    _aggCpuLoadSum > 0 ? (float?)avgCpuLoad : null,
+                    _aggCpuTempSum > 0 ? (float?)avgCpuTemp : null,
+                    _aggGpuLoadSum > 0 ? (float?)avgGpuLoad : null,
+                    _aggGpuTempSum > 0 ? (float?)avgGpuTemp : null,
+                    _aggRamSum > 0 ? (float?)avgRam : null);
+
+                _aggCpuLoadSum = 0;
+                _aggCpuTempSum = 0;
+                _aggGpuLoadSum = 0;
+                _aggGpuTempSum = 0;
+                _aggRamSum = 0;
+                _aggCount = 0;
+            }
         }
 
         private void UpdateMetrics()
@@ -192,6 +237,17 @@ namespace PcMonitoring.ViewModel
             GpuLoad = m.GpuLoad;
             GpuTemp = m.GpuTemp;
             RamUsedPercent = m.RamUsedPercent;
+
+            // Агрегация для записи в БД
+            lock (_aggLock)
+            {
+                _aggCpuLoadSum = (_aggCpuLoadSum ?? 0) + (m.CpuLoad ?? 0);
+                _aggCpuTempSum = (_aggCpuTempSum ?? 0) + (m.CpuTemp ?? 0);
+                _aggGpuLoadSum = (_aggGpuLoadSum ?? 0) + (m.GpuLoad ?? 0);
+                _aggGpuTempSum = (_aggGpuTempSum ?? 0) + (m.GpuTemp ?? 0);
+                _aggRamSum = (_aggRamSum ?? 0) + (m.RamUsedPercent ?? 0);
+                _aggCount++;
+            }
 
             CpuLoadText = FormatPercent(CpuLoad);
             CpuTempText = FormatTemp(CpuTemp);
@@ -213,11 +269,9 @@ namespace PcMonitoring.ViewModel
             if (CpuTemp.HasValue && CpuTemp.Value >= _cpuCriticalTemp && !_cpuAlertShown)
             {
                 _cpuAlertShown = true;
-                System.Windows.MessageBox.Show(
-                    $"Температура CPU достигла {CpuTemp.Value:0}°C (порог: {_cpuCriticalTemp}°C)!\n\nПроверьте систему охлаждения.",
-                    "⚠️ Предупреждение о перегреве CPU",
-                    System.Windows.MessageBoxButton.OK,
-                    System.Windows.MessageBoxImage.Warning);
+                _showNotification?.Invoke(
+                    "⚠️ Перегрев CPU",
+                    $"Температура CPU достигла {CpuTemp.Value:0}°C (порог: {_cpuCriticalTemp}°C)! Проверьте систему охлаждения.");
             }
             else if (CpuTemp.HasValue && CpuTemp.Value < _cpuCriticalTemp - 5)
             {
@@ -227,16 +281,21 @@ namespace PcMonitoring.ViewModel
             if (GpuTemp.HasValue && GpuTemp.Value >= _gpuCriticalTemp && !_gpuAlertShown)
             {
                 _gpuAlertShown = true;
-                System.Windows.MessageBox.Show(
-                    $"Температура GPU достигла {GpuTemp.Value:0}°C (порог: {_gpuCriticalTemp}°C)!\n\nПроверьте систему охлаждения.",
-                    "⚠️ Предупреждение о перегреве GPU",
-                    System.Windows.MessageBoxButton.OK,
-                    System.Windows.MessageBoxImage.Warning);
+                _showNotification?.Invoke(
+                    "⚠️ Перегрев GPU",
+                    $"Температура GPU достигла {GpuTemp.Value:0}°C (порог: {_gpuCriticalTemp}°C)! Проверьте систему охлаждения.");
             }
             else if (GpuTemp.HasValue && GpuTemp.Value < _gpuCriticalTemp - 5)
             {
                 _gpuAlertShown = false;
             }
+        }
+
+        public void TestNotification()
+        {
+            _showNotification?.Invoke(
+                "🔔 Тест уведомления",
+                "Уведомления работают корректно!");
         }
 
         private static string? FormatPercent(float? value) =>
@@ -266,7 +325,12 @@ namespace PcMonitoring.ViewModel
             _gpuCriticalTemp = gpuTemp;
         }
 
-        public void Stop() => _reader?.Dispose();
+        public void Stop()
+        {
+            FlushAggregatedMetrics();
+            _reader?.Dispose();
+            _database?.Dispose();
+        }
 
         protected void OnPropertyChanged([CallerMemberName] string? name = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

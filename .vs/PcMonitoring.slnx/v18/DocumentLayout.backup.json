@@ -7,8 +7,16 @@
       "RelativeMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|solutionrelative:pcmonitoring\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|c:\\users\\turococ\\documents\\github\\pc_monitoring\\pcmonitoring\\viewmodels\\historyviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|solutionrelative:pcmonitoring\\viewmodels\\historyviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|c:\\users\\turococ\\documents\\github\\pc_monitoring\\pcmonitoring\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|solutionrelative:pcmonitoring\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|c:\\users\\turococ\\documents\\github\\pc_monitoring\\pcmonitoring\\hardware\\hardwaremetrics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|solutionrelative:pcmonitoring\\hardware\\hardwaremetrics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|c:\\users\\turococ\\documents\\github\\pc_monitoring\\pcmonitoring\\viewmodels\\pcspecsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -27,10 +35,6 @@
       "RelativeMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|solutionrelative:pcmonitoring\\hardware\\visitor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|c:\\users\\turococ\\documents\\github\\pc_monitoring\\pcmonitoring\\hardware\\hardwaremetrics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|solutionrelative:pcmonitoring\\hardware\\hardwaremetrics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|c:\\users\\turococ\\documents\\github\\pc_monitoring\\pcmonitoring\\hardware\\pcspecs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{96863415-6800-CD15-A119-A5A68A56101E}|PcMonitoring\\PcMonitoring.csproj|solutionrelative:pcmonitoring\\hardware\\pcspecs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -42,8 +46,21 @@
       "DocumentGroups": [
         {
           "DockedHeight": 517,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HistoryViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\ViewModels\\HistoryViewModel.cs",
+              "RelativeDocumentMoniker": "PcMonitoring\\ViewModels\\HistoryViewModel.cs",
+              "ToolTip": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\ViewModels\\HistoryViewModel.cs",
+              "RelativeToolTip": "PcMonitoring\\ViewModels\\HistoryViewModel.cs",
+              "ViewState": "AgIAAAUAAACAZmZmZmYkwBUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T13:47:08.723Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -58,7 +75,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "PcSpecs.cs",
               "DocumentMoniker": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\Hardware\\PcSpecs.cs",
               "RelativeDocumentMoniker": "PcMonitoring\\Hardware\\PcSpecs.cs",
@@ -70,7 +87,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "Visitor.cs",
               "DocumentMoniker": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\Hardware\\Visitor.cs",
               "RelativeDocumentMoniker": "PcMonitoring\\Hardware\\Visitor.cs",
@@ -82,33 +99,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "PcSpecsViewModel.cs",
               "DocumentMoniker": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\ViewModels\\PcSpecsViewModel.cs",
               "RelativeDocumentMoniker": "PcMonitoring\\ViewModels\\PcSpecsViewModel.cs",
               "ToolTip": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\ViewModels\\PcSpecsViewModel.cs",
               "RelativeToolTip": "PcMonitoring\\ViewModels\\PcSpecsViewModel.cs",
-              "ViewState": "AgIAAAsAAAAAMjMzM7MjwNkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAMjMzM7MjwNsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-20T15:56:02.276Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "PcMonitoring\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\MainWindow.xaml.cs",
               "RelativeToolTip": "PcMonitoring\\MainWindow.xaml.cs",
-              "ViewState": "AgIAALAAAAAA6PI8uLsPwEoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAowBMAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-07T12:38:35.443Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "PcMonitoring.csproj",
               "DocumentMoniker": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\PcMonitoring.csproj",
               "RelativeDocumentMoniker": "PcMonitoring\\PcMonitoring.csproj",
@@ -120,7 +137,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "HardwareReader.cs",
               "DocumentMoniker": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\Hardware\\HardwareReader.cs",
               "RelativeDocumentMoniker": "PcMonitoring\\Hardware\\HardwareReader.cs",
@@ -132,7 +149,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "HardwareMetrics.cs",
               "DocumentMoniker": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\Hardware\\HardwareMetrics.cs",
               "RelativeDocumentMoniker": "PcMonitoring\\Hardware\\HardwareMetrics.cs",
@@ -140,7 +157,8 @@
               "RelativeToolTip": "PcMonitoring\\Hardware\\HardwareMetrics.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-19T13:46:54.946Z"
+              "WhenOpened": "2026-02-19T13:46:54.946Z",
+              "EditorCaption": ""
             }
           ]
         },
@@ -148,6 +166,10 @@
           "DockedHeight": 227,
           "SelectedChildIndex": -1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"

@@ -7,7 +7,7 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         AllowsTransparency="True"
         WindowStyle="None"
-        Title="ПК-Страж"
+        Title="PC Monitoring PRO"
         Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
         Background="Transparent">
@@ -28,7 +28,6 @@
         <SolidColorBrush x:Key="TextBoxForeground" Color="White"/>
         <SolidColorBrush x:Key="TextBoxBorderBrush" Color="#555"/>
         <SolidColorBrush x:Key="CaretBrush" Color="White"/>
-        <SolidColorBrush x:Key="HighlightBlue" Color="#6DB3F2"/>
         <SolidColorBrush x:Key="SettingDescription" Color="#666"/>
         <SolidColorBrush x:Key="SettingLabel" Color="#CCC"/>
         <SolidColorBrush x:Key="ScrollBarBackground" Color="#333333"/>
@@ -37,6 +36,252 @@
         <SolidColorBrush x:Key="CloseButtonHover" Color="#C42B1C"/>
 
         <!-- Стили -->
+        <SolidColorBrush x:Key="ComboBoxPopupBackground" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="ComboBoxPopupForeground" Color="White"/>
+        <SolidColorBrush x:Key="ComboBoxItemHover" Color="#3A3A3A"/>
+
+        <Style x:Key="ThemeComboBox" TargetType="ComboBox">
+            <Setter Property="Foreground" Value="{DynamicResource TextBoxForeground}"/>
+            <Setter Property="Background" Value="{DynamicResource TextBoxBackground}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Foreground" Value="{DynamicResource ComboBoxPopupForeground}"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="MinWidth" Value="80"/>
+                        <Setter Property="Padding" Value="12,8"/>
+                        <Setter Property="FontSize" Value="14"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ComboBoxItem">
+                                    <Border x:Name="border"
+                                            Background="{TemplateBinding Background}"
+                                            Padding="{TemplateBinding Padding}"
+                                            SnapsToDevicePixels="true"
+                                            CornerRadius="6">
+                                        <Border.RenderTransform>
+                                            <ScaleTransform x:Name="ItemScale" ScaleX="1" ScaleY="1"/>
+                                        </Border.RenderTransform>
+                                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsHighlighted" Value="True">
+                                            <Setter TargetName="border" Property="Background" Value="{DynamicResource ComboBoxItemHover}"/>
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="ItemScale"
+                                                                         Storyboard.TargetProperty="ScaleX"
+                                                                         To="1.02" Duration="0:0:0.15"/>
+                                                        <DoubleAnimation Storyboard.TargetName="ItemScale"
+                                                                         Storyboard.TargetProperty="ScaleY"
+                                                                         To="1.02" Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="ItemScale"
+                                                                         Storyboard.TargetProperty="ScaleX"
+                                                                         To="1" Duration="0:0:0.15"/>
+                                                        <DoubleAnimation Storyboard.TargetName="ItemScale"
+                                                                         Storyboard.TargetProperty="ScaleY"
+                                                                         To="1" Duration="0:0:0.15"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <!-- Основной бордер с тенью -->
+                            <Border x:Name="MainBorder"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="8"
+                                    Cursor="Hand">
+                                <Border.Effect>
+                                    <DropShadowEffect x:Name="BorderShadow"
+                                                      Color="Black" BlurRadius="0" ShadowDepth="0" Opacity="0"
+                                                      Direction="0"/>
+                                </Border.Effect>
+                                <!-- Прозрачный слой для кликов + ToggleButton поверх -->
+                                <Grid>
+                                    <!-- Content (выбранный элемент) -->
+                                    <ContentPresenter x:Name="ContentSite"
+                                                      Content="{TemplateBinding SelectionBoxItem}"
+                                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                      Margin="{TemplateBinding Padding}"
+                                                      VerticalAlignment="Center"
+                                                      HorizontalAlignment="Left"
+                                                      IsHitTestVisible="False"
+                                                      TextBlock.Foreground="{TemplateBinding Foreground}"
+                                                      TextBlock.FontSize="{TemplateBinding FontSize}"
+                                                      TextBlock.FontWeight="{TemplateBinding FontWeight}"/>
+
+                                    <!-- ToggleButton — на всю ширину, прозрачный, кликабельный -->
+                                    <ToggleButton x:Name="ToggleBtn"
+                                                  Background="Transparent"
+                                                  BorderThickness="0"
+                                                  Focusable="False"
+                                                  Cursor="Hand"
+                                                  IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                        <ToggleButton.Template>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border Background="Transparent"/>
+                                            </ControlTemplate>
+                                        </ToggleButton.Template>
+                                    </ToggleButton>
+
+                                    <!-- Стрелка (визуальная, не кликабельная отдельно) -->
+                                    <Path x:Name="Arrow"
+                                          Fill="{DynamicResource TextPrimary}"
+                                          HorizontalAlignment="Right"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,12,0"
+                                          RenderTransformOrigin="0.5,0.5"
+                                          IsHitTestVisible="False"
+                                          Data="M0,0 L5,5 L10,0">
+                                        <Path.RenderTransform>
+                                            <RotateTransform x:Name="ArrowRotation" Angle="0"/>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                </Grid>
+                            </Border>
+
+                            <!-- Выпадающий список -->
+                            <Popup x:Name="PART_Popup"
+                                   Placement="Bottom"
+                                   IsOpen="{Binding Path=IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   PopupAnimation="Slide">
+                                <Border x:Name="DropDownBorder"
+                                        Background="{DynamicResource ComboBoxPopupBackground}"
+                                        BorderBrush="{DynamicResource TextBoxBorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="10"
+                                        Margin="0,6,0,0"
+                                        RenderTransformOrigin="0.5,0">
+                                    <Border.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform x:Name="DropDownScale" ScaleX="1" ScaleY="0"/>
+                                            <TranslateTransform x:Name="DropDownTranslate" Y="0"/>
+                                        </TransformGroup>
+                                    </Border.RenderTransform>
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="4" Opacity="0.4" Direction="270"/>
+                                    </Border.Effect>
+                                    <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="Auto" Padding="4">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+
+                        <!-- Триггеры шаблона -->
+                        <ControlTemplate.Triggers>
+                            <!-- Hover на основном бордере -->
+                            <Trigger SourceName="MainBorder" Property="IsMouseOver" Value="True">
+                                <Setter TargetName="MainBorder" Property="BorderBrush" Value="{DynamicResource TextPrimary}"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="BorderShadow"
+                                                             Storyboard.TargetProperty="Opacity" To="0.3" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="BorderShadow"
+                                                             Storyboard.TargetProperty="BlurRadius" To="8" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="BorderShadow"
+                                                             Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2"/>
+                                            <DoubleAnimation Storyboard.TargetName="BorderShadow"
+                                                             Storyboard.TargetProperty="BlurRadius" To="0" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <!-- Стрелка поворачивается когда открыт -->
+                            <Trigger SourceName="ToggleBtn" Property="IsChecked" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ArrowRotation"
+                                                             Storyboard.TargetProperty="Angle"
+                                                             To="180" Duration="0:0:0.25">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="ArrowRotation"
+                                                             Storyboard.TargetProperty="Angle"
+                                                             To="0" Duration="0:0:0.25">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+
+                            <!-- Открытие Popup -->
+                            <Trigger SourceName="PART_Popup" Property="IsOpen" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="DropDownScale"
+                                                             Storyboard.TargetProperty="ScaleY"
+                                                             From="0" To="1" Duration="0:0:0.25">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut" Amplitude="0.4"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation Storyboard.TargetName="DropDownTranslate"
+                                                             Storyboard.TargetProperty="Y"
+                                                             From="-10" To="0" Duration="0:0:0.25">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <BackEase EasingMode="EaseOut" Amplitude="0.3"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="NavButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
@@ -49,7 +294,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="bg" Background="{TemplateBinding Background}" 
+                        <Border x:Name="bg" Background="{TemplateBinding Background}"
                                 CornerRadius="6" Padding="{TemplateBinding Padding}">
                             <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
                         </Border>
@@ -60,25 +305,27 @@
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="bg" Property="Background" Value="{DynamicResource NavButtonPressed}"/>
                             </Trigger>
+                            <Trigger Property="Tag" Value="Active">
+                                <Setter TargetName="bg" Property="Background" Value="{DynamicResource NavButtonHover}"/>
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
-        <Style TargetType="{x:Type ScrollBar}">
+        <Style x:Key="MainScrollBar" TargetType="{x:Type ScrollBar}">
             <Setter Property="Width" Value="10"/>
-            <Setter Property="Background" Value="{DynamicResource ScrollBarBackground}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource ScrollBarBackground}"/>
-            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
-
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="BorderBrush" Value="#333333"/>
+            <Setter Property="Foreground" Value="White"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ScrollBar}">
                         <Grid>
                             <Track x:Name="PART_Track" IsDirectionReversed="True">
                                 <Track.Thumb>
-                                    <Thumb Background="{DynamicResource ScrollBarThumb}"
+                                    <Thumb Background="#888888"
                                    Margin="1,0,1,0"
                                    VerticalAlignment="Stretch"
                                    HorizontalAlignment="Stretch">
@@ -86,7 +333,7 @@
                                             <ControlTemplate>
                                                 <Grid>
                                                     <Rectangle RadiusX="4" RadiusY="4"
-                                                       Fill="{DynamicResource ScrollBarThumb}"/>
+                                                       Fill="#888888"/>
                                                 </Grid>
                                             </ControlTemplate>
                                         </Thumb.Template>
@@ -97,7 +344,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-
             <Style.Triggers>
                 <Trigger Property="Orientation" Value="Horizontal">
                     <Setter Property="Height" Value="10"/>
@@ -108,6 +354,9 @@
     </Window.Resources>
 
     <Border x:Name="MainBorder" Background="{DynamicResource MainBorderBackground}" CornerRadius="12" Margin="10" Padding="0">
+        <Border.Clip>
+            <RectangleGeometry x:Name="MainClip" RadiusX="12" RadiusY="12"/>
+        </Border.Clip>
         <Grid x:Name="RootGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
@@ -126,6 +375,7 @@
                                Margin="0,0,0,15"/>
                     <Button x:Name="MonitoringBtn" Content="Мониторинг" Style="{StaticResource NavButton}" Click="Monitoring_Click"/>
                     <Button x:Name="SpecsBtn" Content="Комплектующие" Style="{StaticResource NavButton}" Click="Specs_Click"/>
+                    <Button x:Name="HistoryBtn" Content="История" Style="{StaticResource NavButton}" Click="History_Click"/>
                     <Button x:Name="SettingsBtn" Content="Настройки" Style="{StaticResource NavButton}" Click="Settings_Click"/>
                 </StackPanel>
             </Border>
@@ -245,7 +495,10 @@
 
                     <Grid Height="530" Background="Transparent">
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                        VerticalScrollBarVisibility="Auto">
+                                      VerticalScrollBarVisibility="Auto">
+                            <ScrollViewer.Resources>
+                                <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource MainScrollBar}"/>
+                            </ScrollViewer.Resources>
                             <StackPanel>
 
                                 <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
@@ -311,22 +564,22 @@
                     <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
                         <StackPanel>
                             <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14">
-                            <Run FontWeight="Bold" Foreground="{DynamicResource HighlightBlue}">CPU:</Run><LineBreak/>
+                            <Run FontWeight="Bold">CPU:</Run><LineBreak/>
                             <Run Text="{Binding Cpu, Mode=OneTime}"/>
                             </TextBlock>
                             <Separator Margin="0,10,0,10" Background="{DynamicResource SeparatorBackground}"/>
                             <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14">
-                            <Run FontWeight="Bold" Foreground="{DynamicResource HighlightBlue}">GPU:</Run><LineBreak/>
+                            <Run FontWeight="Bold">GPU:</Run><LineBreak/>
                             <Run Text="{Binding Gpu, Mode=OneTime}"/>
                             </TextBlock>
                             <Separator Margin="0,10,0,10" Background="{DynamicResource SeparatorBackground}"/>
                             <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14">
-                            <Run FontWeight="Bold" Foreground="{DynamicResource HighlightBlue}">Материнская плата:</Run><LineBreak/>
+                            <Run FontWeight="Bold">Материнская плата:</Run><LineBreak/>
                             <Run Text="{Binding Motherboard, Mode=OneTime}"/>
                             </TextBlock>
                             <Separator Margin="0,10,0,10" Background="{DynamicResource SeparatorBackground}"/>
                             <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14">
-                            <Run FontWeight="Bold" Foreground="{DynamicResource HighlightBlue}">ОЗУ:</Run><LineBreak/>
+                            <Run FontWeight="Bold">ОЗУ:</Run><LineBreak/>
                             <Run Text="{Binding Ram, Mode=OneTime}"/>
                             </TextBlock>
                         </StackPanel>
@@ -335,7 +588,7 @@
                     <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
                         <StackPanel>
                             <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="16" FontWeight="Bold" Margin="0,0,0,10">
-                                <Run Foreground="{DynamicResource HighlightBlue}">Диски:</Run>
+                                <Run>Диски:</Run>
                             </TextBlock>
                             <ItemsControl ItemsSource="{Binding Disks}">
                                 <ItemsControl.ItemTemplate>
@@ -351,6 +604,166 @@
                     </Border>
                 </StackPanel>
 
+                <Grid x:Name="HistoryScreen" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Заголовок и период — фиксированные, без скролла -->
+                    <StackPanel Grid.Row="0">
+                        <TextBlock Text="История метрик"
+                                   Foreground="{DynamicResource TextPrimary}" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                        <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14" FontWeight="Bold" Text="Период:" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                <ComboBox x:Name="PeriodCombo"
+                                          SelectedItem="{Binding SelectedPeriod}"
+                                          ItemsSource="{Binding Periods}"
+                                          Style="{StaticResource ThemeComboBox}"
+                                          Width="100"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Скроллируемая область: сводка + последние записи -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,5,0" Margin="0,0,0,10">
+                        <ScrollViewer.Resources>
+                            <Style TargetType="{x:Type ScrollBar}" BasedOn="{StaticResource MainScrollBar}"/>
+                        </ScrollViewer.Resources>
+                        <StackPanel>
+
+                    <!-- Статистика -->
+                    <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="20" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="18" FontWeight="Bold" Margin="0,0,0,15">
+                                <Run>Сводка за период</Run>
+                            </TextBlock>
+
+                            <!-- CPU Load -->
+                            <Border Background="{DynamicResource SidebarBackground}" CornerRadius="6" Padding="12" Margin="0,0,0,8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Foreground="{DynamicResource TextPrimary}" FontSize="14" FontWeight="Bold" VerticalAlignment="Center">
+                                        CPU Load
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="14" VerticalAlignment="Center">
+                                        <Run Text="{Binding CpuLoadStats}"/>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+
+                            <!-- CPU Temp -->
+                            <Border Background="{DynamicResource SidebarBackground}" CornerRadius="6" Padding="12" Margin="0,0,0,8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Foreground="{DynamicResource TextPrimary}" FontSize="14" FontWeight="Bold" VerticalAlignment="Center">
+                                        CPU Temp
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="14" VerticalAlignment="Center">
+                                        <Run Text="{Binding CpuTempStats}"/>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+
+                            <!-- GPU Temp -->
+                            <Border Background="{DynamicResource SidebarBackground}" CornerRadius="6" Padding="12" Margin="0,0,0,8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Foreground="{DynamicResource TextPrimary}" FontSize="14" FontWeight="Bold" VerticalAlignment="Center">
+                                        GPU Temp
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="14" VerticalAlignment="Center">
+                                        <Run Text="{Binding GpuTempStats}"/>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+
+                            <!-- RAM -->
+                            <Border Background="{DynamicResource SidebarBackground}" CornerRadius="6" Padding="12" Margin="0,0,0,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Foreground="{DynamicResource TextPrimary}" FontSize="14" FontWeight="Bold" VerticalAlignment="Center">
+                                        RAM
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="1" Foreground="{DynamicResource TextPrimary}" FontSize="14" VerticalAlignment="Center">
+                                        <Run Text="{Binding RamStats}"/>
+                                    </TextBlock>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Последние записи -->
+                    <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="16" FontWeight="Bold" Margin="0,0,0,10">
+                                <Run>Последние записи</Run>
+                            </TextBlock>
+                            <Border Background="{DynamicResource SidebarBackground}" CornerRadius="6" Padding="0" Height="300">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <!-- Заголовки -->
+                                    <Grid Grid.Row="0" Background="{DynamicResource ContentBackground}" TextElement.Foreground="{DynamicResource TextPrimary}" TextElement.FontSize="13" TextElement.FontWeight="Bold">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="140"/>
+                                            <ColumnDefinition Width="90"/>
+                                            <ColumnDefinition Width="90"/>
+                                            <ColumnDefinition Width="90"/>
+                                            <ColumnDefinition Width="90"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Column="0" Text="Время" Padding="10,8"/>
+                                        <TextBlock Grid.Column="1" Text="CPU Load" Padding="10,8"/>
+                                        <TextBlock Grid.Column="2" Text="CPU Temp" Padding="10,8"/>
+                                        <TextBlock Grid.Column="3" Text="GPU Temp" Padding="10,8"/>
+                                        <TextBlock Grid.Column="4" Text="RAM" Padding="10,8"/>
+                                    </Grid>
+                                    <!-- Строки со скроллом -->
+                                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                        <ItemsControl ItemsSource="{Binding RecentRecords}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid TextElement.Foreground="{DynamicResource TextPrimary}" TextElement.FontSize="13">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="140"/>
+                                                            <ColumnDefinition Width="90"/>
+                                                            <ColumnDefinition Width="90"/>
+                                                            <ColumnDefinition Width="90"/>
+                                                            <ColumnDefinition Width="90"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock Grid.Column="0" Padding="10,4" Text="{Binding Timestamp, StringFormat='dd.MM HH:mm:ss'}"/>
+                                                        <TextBlock Grid.Column="1" Padding="10,4" Text="{Binding CpuLoad, StringFormat='{}{0:0} %'}"/>
+                                                        <TextBlock Grid.Column="2" Padding="10,4" Text="{Binding CpuTemp, StringFormat='{}{0:0} °C'}"/>
+                                                        <TextBlock Grid.Column="3" Padding="10,4" Text="{Binding GpuTemp, StringFormat='{}{0:0} °C'}"/>
+                                                        <TextBlock Grid.Column="4" Padding="10,4" Text="{Binding RamUsedPercent, StringFormat='{}{0:0} %'}"/>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
                 <StackPanel x:Name="SettingsScreen" Visibility="Collapsed">
                     <TextBlock Text="Настройки"
                                Foreground="{DynamicResource TextPrimary}" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
@@ -358,7 +771,7 @@
                     <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="20" Margin="0,0,0,10">
                         <StackPanel>
                             <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="16" FontWeight="Bold" Margin="0,0,0,15">
-                                <Run Foreground="{DynamicResource HighlightBlue}">Критические температуры</Run>
+                                <Run>Критические температуры</Run>
                             </TextBlock>
 
                             <StackPanel Margin="0,0,0,15">
@@ -422,10 +835,10 @@
                     <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="20" Margin="0,0,0,10">
                         <StackPanel>
                             <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="16" FontWeight="Bold" Margin="0,0,0,10">
-                                <Run Foreground="{DynamicResource HighlightBlue}">О программе</Run>
+                                <Run>О программе</Run>
                             </TextBlock>
                             <TextBlock Foreground="{DynamicResource TextSecondary}" FontSize="13">
-                                ПК-Страж v1.0<LineBreak/>
+                                PC Monitoring PRO v1.0<LineBreak/>
                                 Мониторинг температуры и загрузки CPU/GPU в реальном времени
                             </TextBlock>
                         </StackPanel>
