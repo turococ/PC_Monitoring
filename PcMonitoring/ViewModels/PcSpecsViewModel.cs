@@ -29,6 +29,13 @@ namespace PcMonitoring.ViewModel
             set { _cpuLoad = value; OnPropertyChanged(); UpdateCpuSeries(); }
         }
 
+        private float? _cpuTemp;
+        public float? CpuTemp
+        {
+            get => _cpuTemp;
+            set { _cpuTemp = value; OnPropertyChanged(); UpdateCpuTempSeries(); }
+        }
+
         private float? _gpuLoad;
         public float? GpuLoad
         {
@@ -51,12 +58,14 @@ namespace PcMonitoring.ViewModel
         }
 
         public string? CpuLoadText { get; set; }
+        public string? CpuTempText { get; set; }
         public string? GpuLoadText { get; set; }
         public string? GpuTempText { get; set; }
         public string? RamUsedPercentText { get; set; }
 
         // Серии
         public ObservableCollection<ISeries> CpuSeries { get; set; }
+        public ObservableCollection<ISeries> CpuTempSeries { get; set; }
         public ObservableCollection<ISeries> GpuSeries { get; set; }
         public ObservableCollection<ISeries> GpuTempSeries { get; set; }
         public ObservableCollection<ISeries> RamSeries { get; set; }
@@ -82,6 +91,21 @@ namespace PcMonitoring.ViewModel
                     Name = "CPU Load",
                     Fill = new SolidColorPaint(SKColors.Red.WithAlpha(100)),
                     Stroke = new SolidColorPaint(SKColors.Red, 2),
+                    GeometryFill = null,
+                    GeometryStroke = null,
+                    GeometrySize = 0,
+                    LineSmoothness = 0f
+                }
+            };
+
+            CpuTempSeries = new ObservableCollection<ISeries>
+            {
+                new LineSeries<double>
+                {
+                    Values = new ObservableCollection<double>(),
+                    Name = "CPU Temp",
+                    Fill = new SolidColorPaint(SKColors.Cyan.WithAlpha(100)),
+                    Stroke = new SolidColorPaint(SKColors.Cyan, 2),
                     GeometryFill = null,
                     GeometryStroke = null,
                     GeometrySize = 0,
@@ -147,28 +171,32 @@ namespace PcMonitoring.ViewModel
             var m = _reader.GetCurrentMetrics();
 
             CpuLoad = m.CpuLoad;
+            CpuTemp = m.CpuTemp;
             GpuLoad = m.GpuLoad;
             GpuTemp = m.GpuTemp;
             RamUsedPercent = m.RamUsedPercent;
 
-            System.Diagnostics.Debug.WriteLine($"CpuLoad: {CpuLoad} -> {FormatPercent(CpuLoad)}");
-            System.Diagnostics.Debug.WriteLine($"GpuLoad: {GpuLoad} -> {FormatPercent(GpuLoad)}");
-            System.Diagnostics.Debug.WriteLine($"GpuTemp: {GpuTemp} -> {FormatTemp(GpuTemp)}");
-            System.Diagnostics.Debug.WriteLine($"RamUsedPercent: {RamUsedPercent} -> {FormatPercent(RamUsedPercent)}");
-
             CpuLoadText = FormatPercent(CpuLoad);
+            CpuTempText = FormatTemp(CpuTemp);
             GpuLoadText = FormatPercent(GpuLoad);
             GpuTempText = FormatTemp(GpuTemp);
             RamUsedPercentText = FormatPercent(RamUsedPercent);
+            
+            OnPropertyChanged(nameof(CpuLoadText));
+            OnPropertyChanged(nameof(CpuTempText));
+            OnPropertyChanged(nameof(GpuLoadText));
+            OnPropertyChanged(nameof(GpuTempText));
+            OnPropertyChanged(nameof(RamUsedPercentText));
         }
 
         private static string? FormatPercent(float? value) =>
-        value?.ToString("0.00") + " %";
+        value?.ToString("0") + " %";
 
         private static string? FormatTemp(float? value) =>
-        value?.ToString("0.00") + " °C";
+        value?.ToString("0") + " °C";
 
         private void UpdateCpuSeries() => AppendAndUpdate(CpuSeries[0], CpuLoad, 20);
+        private void UpdateCpuTempSeries() => AppendAndUpdate(CpuTempSeries[0], CpuTemp, 20);
         private void UpdateGpuSeries() => AppendAndUpdate(GpuSeries[0], GpuLoad, 20);
         private void UpdateGpuTempSeries() => AppendAndUpdate(GpuTempSeries[0], GpuTemp, 20);
         private void UpdateRamSeries() => AppendAndUpdate(RamSeries[0], RamUsedPercent, 20);
