@@ -13,9 +13,33 @@
         Background="Transparent">
     
     <Window.Resources>
+        <!--Тёмная тема -->
+        <SolidColorBrush x:Key="WindowBackground" Color="Transparent"/>
+        <SolidColorBrush x:Key="MainBorderBackground" Color="#AA000000"/>
+        <SolidColorBrush x:Key="SidebarBackground" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="ContentBackground" Color="#2A2A2A"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="White"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#AAA"/>
+        <SolidColorBrush x:Key="TextMenuTitle" Color="#888"/>
+        <SolidColorBrush x:Key="SeparatorBackground" Color="#444"/>
+        <SolidColorBrush x:Key="NavButtonHover" Color="#3A3A3A"/>
+        <SolidColorBrush x:Key="NavButtonPressed" Color="#2A2A2A"/>
+        <SolidColorBrush x:Key="TextBoxBackground" Color="#3A3A3A"/>
+        <SolidColorBrush x:Key="TextBoxForeground" Color="White"/>
+        <SolidColorBrush x:Key="TextBoxBorderBrush" Color="#555"/>
+        <SolidColorBrush x:Key="CaretBrush" Color="White"/>
+        <SolidColorBrush x:Key="HighlightBlue" Color="#6DB3F2"/>
+        <SolidColorBrush x:Key="SettingDescription" Color="#666"/>
+        <SolidColorBrush x:Key="SettingLabel" Color="#CCC"/>
+        <SolidColorBrush x:Key="ScrollBarBackground" Color="#333333"/>
+        <SolidColorBrush x:Key="ScrollBarThumb" Color="#888888"/>
+        <SolidColorBrush x:Key="ButtonHover" Color="#3A3A3A"/>
+        <SolidColorBrush x:Key="CloseButtonHover" Color="#C42B1C"/>
+
+        <!-- Стили -->
         <Style x:Key="NavButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="10,8"/>
             <Setter Property="Margin" Value="0,5,0,0"/>
@@ -31,10 +55,10 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="bg" Property="Background" Value="#3A3A3A"/>
+                                <Setter TargetName="bg" Property="Background" Value="{DynamicResource NavButtonHover}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="bg" Property="Background" Value="#2A2A2A"/>
+                                <Setter TargetName="bg" Property="Background" Value="{DynamicResource NavButtonPressed}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -44,9 +68,9 @@
 
         <Style TargetType="{x:Type ScrollBar}">
             <Setter Property="Width" Value="10"/>
-            <Setter Property="Background" Value="#333333"/>
-            <Setter Property="BorderBrush" Value="#333333"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{DynamicResource ScrollBarBackground}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ScrollBarBackground}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
 
             <Setter Property="Template">
                 <Setter.Value>
@@ -54,7 +78,7 @@
                         <Grid>
                             <Track x:Name="PART_Track" IsDirectionReversed="True">
                                 <Track.Thumb>
-                                    <Thumb Background="#888888"
+                                    <Thumb Background="{DynamicResource ScrollBarThumb}"
                                    Margin="1,0,1,0"
                                    VerticalAlignment="Stretch"
                                    HorizontalAlignment="Stretch">
@@ -62,7 +86,7 @@
                                             <ControlTemplate>
                                                 <Grid>
                                                     <Rectangle RadiusX="4" RadiusY="4"
-                                                       Fill="#888888"/>
+                                                       Fill="{DynamicResource ScrollBarThumb}"/>
                                                 </Grid>
                                             </ControlTemplate>
                                         </Thumb.Template>
@@ -83,26 +107,26 @@
         </Style>
     </Window.Resources>
 
-    <Border Background="#AA000000" CornerRadius="12" Margin="10" Padding="0">
-        <Grid>
+    <Border x:Name="MainBorder" Background="{DynamicResource MainBorderBackground}" CornerRadius="12" Margin="10" Padding="0">
+        <Grid x:Name="RootGrid">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" 
-                    Background="#1E1E1E" 
+            <Border x:Name="SidebarBorder" Grid.Column="0"
+                    Background="{DynamicResource SidebarBackground}"
                     CornerRadius="12,0,0,12"
                     Padding="10">
                 <StackPanel>
-                    <TextBlock Text="МЕНЮ" 
-                               Foreground="#888" 
-                               FontSize="12" 
-                               FontWeight="Bold" 
+                    <TextBlock Text="МЕНЮ"
+                               Foreground="{DynamicResource TextMenuTitle}"
+                               FontSize="12"
+                               FontWeight="Bold"
                                Margin="0,0,0,15"/>
-                    <Button Content="Мониторинг" Style="{StaticResource NavButton}" Click="Monitoring_Click"/>
-                    <Button Content="Комплектующие" Style="{StaticResource NavButton}" Click="Specs_Click"/>
-                    <Button Content="Настройки" Style="{StaticResource NavButton}" Click="Settings_Click"/>
+                    <Button x:Name="MonitoringBtn" Content="Мониторинг" Style="{StaticResource NavButton}" Click="Monitoring_Click"/>
+                    <Button x:Name="SpecsBtn" Content="Комплектующие" Style="{StaticResource NavButton}" Click="Specs_Click"/>
+                    <Button x:Name="SettingsBtn" Content="Настройки" Style="{StaticResource NavButton}" Click="Settings_Click"/>
                 </StackPanel>
             </Border>
 
@@ -113,12 +137,43 @@
                             Margin="0,5,5,0"
                             Panel.ZIndex="10">
 
+                    <Button x:Name="ThemeBtn"
+                            Width="24"
+                            Height="24"
+                            FontSize="12"
+                            Background="Transparent"
+                            Foreground="{DynamicResource TextPrimary}"
+                            BorderThickness="0"
+                            Cursor="Hand"
+                            Click="Theme_Click">
+                        <Button.Content>
+                            <TextBlock Text="☀" Foreground="{DynamicResource TextPrimary}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Button.Content>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border"
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="12">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border"
+                                                Property="Background"
+                                                Value="{DynamicResource ButtonHover}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
                     <Button Content="—"
                             Width="24"
                             Height="24"
                             FontSize="12"
                             Background="Transparent"
-                            Foreground="White"
+                            Foreground="{DynamicResource TextPrimary}"
                             BorderThickness="0"
                             Cursor="Hand"
                             Click="Minimize_Click">
@@ -136,7 +191,7 @@
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter TargetName="border"
                                                 Property="Background"
-                                                Value="#3A3A3A"/>
+                                                Value="{DynamicResource ButtonHover}"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -149,7 +204,7 @@
                             Height="24"
                             FontSize="12"
                             Background="Transparent"
-                            Foreground="White"
+                            Foreground="{DynamicResource TextPrimary}"
                             BorderThickness="0"
                             Cursor="Hand"
                             Click="Close_Click">
@@ -167,77 +222,77 @@
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter TargetName="border"
                                                 Property="Background"
-                                                Value="#C42B1C"/>
+                                                Value="{DynamicResource CloseButtonHover}"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
                 </StackPanel>
-                
+
                 <StackPanel x:Name="WelcomeScreen" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Text="Добро пожаловать в PC Monitor PRO"
-                               Foreground="White" FontSize="24" FontWeight="Bold"
+                               Foreground="{DynamicResource TextPrimary}" FontSize="24" FontWeight="Bold"
                                HorizontalAlignment="Center" Margin="0,0,0,20"/>
-                    <TextBlock Text="Выберите раздел в меню слева, чтобы начать" 
-                               Foreground="#AAA" FontSize="14" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Выберите раздел в меню слева, чтобы начать"
+                               Foreground="{DynamicResource TextSecondary}" FontSize="14" HorizontalAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel x:Name="MonitoringScreen" Visibility="Collapsed">
 
                     <TextBlock Text="Мониторинг в реальном времени"
-                    Foreground="White" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                    Foreground="{DynamicResource TextPrimary}" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
 
                     <Grid Height="530" Background="Transparent">
                         <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                         VerticalScrollBarVisibility="Auto">
                             <StackPanel>
 
-                                <Border Background="#2A2A2A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                                <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
                                     <StackPanel>
-                                        <TextBlock Foreground="White" FontSize="14" Margin="0,0,0,5">
+                                        <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14" Margin="0,0,0,5">
                                         <Run FontWeight="Bold">CPU Load:</Run>
-                                        <TextBlock Text="{Binding CpuLoadText}" />
+                                        <TextBlock Text="{Binding CpuLoadText}" Foreground="{DynamicResource TextPrimary}"/>
                                         </TextBlock>
                                         <lvc:CartesianChart Series="{Binding CpuSeries}" Width="1000" Height="150"/>
                                     </StackPanel>
                                 </Border>
 
-                                <Border Background="#2A2A2A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                                <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
                                     <StackPanel>
-                                        <TextBlock Foreground="White" FontSize="14" Margin="0,0,0,5">
+                                        <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14" Margin="0,0,0,5">
                                         <Run FontWeight="Bold">CPU Temperature:</Run>
-                                        <TextBlock Text="{Binding CpuTempText}" />
+                                        <TextBlock Text="{Binding CpuTempText}" Foreground="{DynamicResource TextPrimary}"/>
                                         </TextBlock>
                                         <lvc:CartesianChart Series="{Binding CpuTempSeries}" Width="1000" Height="150"/>
                                     </StackPanel>
                                 </Border>
 
-                                <Border Background="#2A2A2A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                                <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
                                     <StackPanel>
-                                        <TextBlock Foreground="White" FontSize="14" Margin="0,0,0,5">
+                                        <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14" Margin="0,0,0,5">
                                         <Run FontWeight="Bold">GPU Load:</Run>
-                                        <Run Text="{Binding GpuLoadText}" />
+                                        <Run Text="{Binding GpuLoadText}" Foreground="{DynamicResource TextPrimary}"/>
                                         </TextBlock>
                                         <lvc:CartesianChart Series="{Binding GpuSeries}" Width="500" Height="150"/>
                                     </StackPanel>
                                 </Border>
 
-                                <Border Background="#2A2A2A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                                <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
                                     <StackPanel>
-                                        <TextBlock Foreground="White" FontSize="14" Margin="0,0,0,5">
+                                        <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14" Margin="0,0,0,5">
                                         <Run FontWeight="Bold">GPU Temp:</Run>
-                                        <Run Text="{Binding GpuTempText}" />
+                                        <Run Text="{Binding GpuTempText}" Foreground="{DynamicResource TextPrimary}"/>
                                         </TextBlock>
                                         <lvc:CartesianChart Series="{Binding GpuTempSeries}" Width="500" Height="150"/>
                                     </StackPanel>
                                 </Border>
 
-                                <Border Background="#2A2A2A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                                <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
                                     <StackPanel>
-                                        <TextBlock Foreground="White" FontSize="14" Margin="0,0,0,5">
+                                        <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14" Margin="0,0,0,5">
                                         <Run FontWeight="Bold">RAM Usage:</Run>
-                                        <Run Text="{Binding RamUsedPercentText}" />
+                                        <Run Text="{Binding RamUsedPercentText}" Foreground="{DynamicResource TextPrimary}"/>
                                         </TextBlock>
                                         <lvc:CartesianChart Series="{Binding RamSeries}" Width="500" Height="150"/>
                                     </StackPanel>
@@ -250,44 +305,44 @@
 
 
                 <StackPanel x:Name="SpecsScreen" Visibility="Collapsed">
-                    <TextBlock Text="Информация о системе" 
-                               Foreground="White" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                    <TextBlock Text="Информация о системе"
+                               Foreground="{DynamicResource TextPrimary}" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
 
-                    <Border Background="#2A2A2A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                    <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
                         <StackPanel>
-                            <TextBlock Foreground="White" FontSize="14">
-                            <Run FontWeight="Bold" Foreground="#6DB3F2">CPU:</Run><LineBreak/>
+                            <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14">
+                            <Run FontWeight="Bold" Foreground="{DynamicResource HighlightBlue}">CPU:</Run><LineBreak/>
                             <Run Text="{Binding Cpu, Mode=OneTime}"/>
                             </TextBlock>
-                            <Separator Margin="0,10,0,10" Background="#444"/>
-                            <TextBlock Foreground="White" FontSize="14">
-                            <Run FontWeight="Bold" Foreground="#6DB3F2">GPU:</Run><LineBreak/>
+                            <Separator Margin="0,10,0,10" Background="{DynamicResource SeparatorBackground}"/>
+                            <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14">
+                            <Run FontWeight="Bold" Foreground="{DynamicResource HighlightBlue}">GPU:</Run><LineBreak/>
                             <Run Text="{Binding Gpu, Mode=OneTime}"/>
                             </TextBlock>
-                            <Separator Margin="0,10,0,10" Background="#444"/>
-                            <TextBlock Foreground="White" FontSize="14">
-                            <Run FontWeight="Bold" Foreground="#6DB3F2">Материнская плата:</Run><LineBreak/>
+                            <Separator Margin="0,10,0,10" Background="{DynamicResource SeparatorBackground}"/>
+                            <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14">
+                            <Run FontWeight="Bold" Foreground="{DynamicResource HighlightBlue}">Материнская плата:</Run><LineBreak/>
                             <Run Text="{Binding Motherboard, Mode=OneTime}"/>
                             </TextBlock>
-                            <Separator Margin="0,10,0,10" Background="#444"/>
-                            <TextBlock Foreground="White" FontSize="14">
-                            <Run FontWeight="Bold" Foreground="#6DB3F2">ОЗУ:</Run><LineBreak/>
+                            <Separator Margin="0,10,0,10" Background="{DynamicResource SeparatorBackground}"/>
+                            <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14">
+                            <Run FontWeight="Bold" Foreground="{DynamicResource HighlightBlue}">ОЗУ:</Run><LineBreak/>
                             <Run Text="{Binding Ram, Mode=OneTime}"/>
                             </TextBlock>
                         </StackPanel>
                     </Border>
 
-                    <Border Background="#2A2A2A" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                    <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="15" Margin="0,0,0,10">
                         <StackPanel>
-                            <TextBlock Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10">
-                                <Run Foreground="#6DB3F2">Диски:</Run>
+                            <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="16" FontWeight="Bold" Margin="0,0,0,10">
+                                <Run Foreground="{DynamicResource HighlightBlue}">Диски:</Run>
                             </TextBlock>
                             <ItemsControl ItemsSource="{Binding Disks}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-                                            <TextBlock Foreground="White" FontSize="14" Margin="0,4" Text="{Binding}"/>
-                                            <Separator Margin="0,8,0,2" Background="#444"/>
+                                            <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="14" Margin="0,4" Text="{Binding}"/>
+                                            <Separator Margin="0,8,0,2" Background="{DynamicResource SeparatorBackground}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -298,84 +353,100 @@
 
                 <StackPanel x:Name="SettingsScreen" Visibility="Collapsed">
                     <TextBlock Text="Настройки"
-                               Foreground="White" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
+                               Foreground="{DynamicResource TextPrimary}" FontSize="20" FontWeight="Bold" Margin="0,0,0,15"/>
 
-                    <Border Background="#2A2A2A" CornerRadius="8" Padding="20" Margin="0,0,0,10">
+                    <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="20" Margin="0,0,0,10">
                         <StackPanel>
-                            <TextBlock Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,15">
-                                <Run Foreground="#6DB3F2">Критические температуры</Run>
+                            <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="16" FontWeight="Bold" Margin="0,0,0,15">
+                                <Run Foreground="{DynamicResource HighlightBlue}">Критические температуры</Run>
                             </TextBlock>
 
                             <StackPanel Margin="0,0,0,15">
-                                <TextBlock Foreground="#CCC" FontSize="14" Margin="0,0,0,8">
+                                <TextBlock Foreground="{DynamicResource SettingLabel}" FontSize="14" Margin="0,0,0,8">
                                     Критическая температура CPU (°C):
                                 </TextBlock>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox x:Name="CpuTempBox"
                                              Text="{Binding CpuCriticalTemp, UpdateSourceTrigger=PropertyChanged}"
-                                             Foreground="White"
-                                             Background="#3A3A3A"
-                                             BorderBrush="#555"
+                                             Foreground="{DynamicResource TextBoxForeground}"
+                                             Background="{DynamicResource TextBoxBackground}"
+                                             BorderBrush="{DynamicResource TextBoxBorderBrush}"
                                              BorderThickness="1"
                                              Padding="10,6"
                                              FontSize="16"
                                              Width="80"
                                              TextAlignment="Center"
-                                             CaretBrush="White"/>
+                                             CaretBrush="{DynamicResource CaretBrush}"/>
                                     <TextBlock Text="°C"
-                                               Foreground="#888"
+                                               Foreground="{DynamicResource TextSecondary}"
                                                FontSize="16"
                                                VerticalAlignment="Center"
                                                Margin="10,0,0,0"/>
                                 </StackPanel>
-                                <TextBlock Foreground="#666" FontSize="11" Margin="0,5,0,0">
+                                <TextBlock Foreground="{DynamicResource SettingDescription}" FontSize="11" Margin="0,5,0,0">
                                     При превышении этой температуры появится предупреждение
                                 </TextBlock>
                             </StackPanel>
 
-                            <Separator Background="#444" Margin="0,0,0,15"/>
+                            <Separator Background="{DynamicResource SeparatorBackground}" Margin="0,0,0,15"/>
 
                             <StackPanel Margin="0,0,0,0">
-                                <TextBlock Foreground="#CCC" FontSize="14" Margin="0,0,0,8">
+                                <TextBlock Foreground="{DynamicResource SettingLabel}" FontSize="14" Margin="0,0,0,8">
                                     Критическая температура GPU (°C):
                                 </TextBlock>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBox x:Name="GpuTempBox"
                                              Text="{Binding GpuCriticalTemp, UpdateSourceTrigger=PropertyChanged}"
-                                             Foreground="White"
-                                             Background="#3A3A3A"
-                                             BorderBrush="#555"
+                                             Foreground="{DynamicResource TextBoxForeground}"
+                                             Background="{DynamicResource TextBoxBackground}"
+                                             BorderBrush="{DynamicResource TextBoxBorderBrush}"
                                              BorderThickness="1"
                                              Padding="10,6"
                                              FontSize="16"
                                              Width="80"
                                              TextAlignment="Center"
-                                             CaretBrush="White"/>
+                                             CaretBrush="{DynamicResource CaretBrush}"/>
                                     <TextBlock Text="°C"
-                                               Foreground="#888"
+                                               Foreground="{DynamicResource TextSecondary}"
                                                FontSize="16"
                                                VerticalAlignment="Center"
                                                Margin="10,0,0,0"/>
                                 </StackPanel>
-                                <TextBlock Foreground="#666" FontSize="11" Margin="0,5,0,0">
+                                <TextBlock Foreground="{DynamicResource SettingDescription}" FontSize="11" Margin="0,5,0,0">
                                     При превышении этой температуры появится предупреждение
                                 </TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </Border>
 
-                    <Border Background="#2A2A2A" CornerRadius="8" Padding="20" Margin="0,0,0,10">
+                    <Border Background="{DynamicResource ContentBackground}" CornerRadius="8" Padding="20" Margin="0,0,0,10">
                         <StackPanel>
-                            <TextBlock Foreground="White" FontSize="16" FontWeight="Bold" Margin="0,0,0,10">
-                                <Run Foreground="#6DB3F2">О программе</Run>
+                            <TextBlock Foreground="{DynamicResource TextPrimary}" FontSize="16" FontWeight="Bold" Margin="0,0,0,10">
+                                <Run Foreground="{DynamicResource HighlightBlue}">О программе</Run>
                             </TextBlock>
-                            <TextBlock Foreground="#888" FontSize="13">
+                            <TextBlock Foreground="{DynamicResource TextSecondary}" FontSize="13">
                                 ПК-Страж v1.0<LineBreak/>
                                 Мониторинг температуры и загрузки CPU/GPU в реальном времени
                             </TextBlock>
                         </StackPanel>
                     </Border>
                 </StackPanel>
+
+                <!-- Overlay для анимации смены темы -->
+                <Ellipse x:Name="ThemeOverlay"
+                         Fill="White"
+                         Width="10" Height="10"
+                         Panel.ZIndex="100"
+                         Opacity="0"
+                         IsHitTestVisible="False"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Top"
+                         Margin="0,29,0,0"
+                         RenderTransformOrigin="0.5,0.5">
+                    <Ellipse.RenderTransform>
+                        <ScaleTransform x:Name="ThemeScaleTransform" ScaleX="1" ScaleY="1"/>
+                    </Ellipse.RenderTransform>
+                </Ellipse>
             </Grid>
         </Grid>
     </Border>
