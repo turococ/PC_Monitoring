@@ -16,6 +16,23 @@ namespace PcMonitoring.ViewModel
         private readonly HardwareReader _reader;
         private readonly DispatcherTimer _timer;
 
+        private int _cpuCriticalTemp = 90;
+        public int CpuCriticalTemp
+        {
+            get => _cpuCriticalTemp;
+            set { _cpuCriticalTemp = value; }
+        }
+
+        private int _gpuCriticalTemp = 85;
+        public int GpuCriticalTemp
+        {
+            get => _gpuCriticalTemp;
+            set { _gpuCriticalTemp = value; }
+        }
+
+        private bool _cpuAlertShown;
+        private bool _gpuAlertShown;
+
         public string Cpu { get; }
         public string Gpu { get; }
         public string Motherboard { get; }
@@ -187,6 +204,39 @@ namespace PcMonitoring.ViewModel
             OnPropertyChanged(nameof(GpuLoadText));
             OnPropertyChanged(nameof(GpuTempText));
             OnPropertyChanged(nameof(RamUsedPercentText));
+
+            CheckCriticalTemperatures();
+        }
+
+        private void CheckCriticalTemperatures()
+        {
+            if (CpuTemp.HasValue && CpuTemp.Value >= _cpuCriticalTemp && !_cpuAlertShown)
+            {
+                _cpuAlertShown = true;
+                System.Windows.MessageBox.Show(
+                    $"Температура CPU достигла {CpuTemp.Value:0}°C (порог: {_cpuCriticalTemp}°C)!\n\nПроверьте систему охлаждения.",
+                    "⚠️ Предупреждение о перегреве CPU",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Warning);
+            }
+            else if (CpuTemp.HasValue && CpuTemp.Value < _cpuCriticalTemp - 5)
+            {
+                _cpuAlertShown = false;
+            }
+
+            if (GpuTemp.HasValue && GpuTemp.Value >= _gpuCriticalTemp && !_gpuAlertShown)
+            {
+                _gpuAlertShown = true;
+                System.Windows.MessageBox.Show(
+                    $"Температура GPU достигла {GpuTemp.Value:0}°C (порог: {_gpuCriticalTemp}°C)!\n\nПроверьте систему охлаждения.",
+                    "⚠️ Предупреждение о перегреве GPU",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Warning);
+            }
+            else if (GpuTemp.HasValue && GpuTemp.Value < _gpuCriticalTemp - 5)
+            {
+                _gpuAlertShown = false;
+            }
         }
 
         private static string? FormatPercent(float? value) =>
@@ -208,6 +258,12 @@ namespace PcMonitoring.ViewModel
                 if (value.HasValue) values.Add(value.Value);
                 if (values.Count > maxPoints) values.RemoveAt(0);
             }
+        }
+
+        public void UpdateCriticalTempThresholds(int cpuTemp, int gpuTemp)
+        {
+            _cpuCriticalTemp = cpuTemp;
+            _gpuCriticalTemp = gpuTemp;
         }
 
         public void Stop() => _reader?.Dispose();
