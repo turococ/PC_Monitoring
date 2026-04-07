@@ -16,9 +16,9 @@
 ## Технологии
 
 - **.NET 10.0 WPF**
-- **LibreHardwareMonitorLib** — чтение датчиков
-- **LiveChartsCore.SkiaSharpView.WPF** — графики
-- **SQLite (Microsoft.Data.Sqlite)** — хранение истории
+- **LibreHardwareMonitorLib**
+- **LiveChartsCore.SkiaSharpView.WPF**
+- **SQLite (Microsoft.Data.Sqlite)**
 
 ## Настройки
 
