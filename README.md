@@ -18,7 +18,7 @@
 - **.NET 10.0 WPF**
 - **LibreHardwareMonitorLib**
 - **LiveChartsCore.SkiaSharpView.WPF**
-- **SQLite (Microsoft.Data.Sqlite)**
+- **SQLite**
 
 ## Настройки
 
