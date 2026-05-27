@@ -12,9 +12,8 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\turococ\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\turococ\\.nuget\\packages",
-      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      "C:\\Users\\turoc\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\turoc\\.nuget\\packages"
     ],
     "configProperties": {
       "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false,

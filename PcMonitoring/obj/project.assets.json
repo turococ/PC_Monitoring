@@ -3172,24 +3172,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\turococ\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\turoc\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\PcMonitoring.csproj",
+      "projectUniqueName": "C:\\Users\\turoc\\OneDrive\\Документы\\github\\PC_Monitoring\\PcMonitoring\\PcMonitoring.csproj",
       "projectName": "PcMonitoring",
-      "projectPath": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\PcMonitoring.csproj",
-      "packagesPath": "C:\\Users\\turococ\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\turococ\\Documents\\GitHub\\PC_Monitoring\\PcMonitoring\\obj\\",
+      "projectPath": "C:\\Users\\turoc\\OneDrive\\Документы\\github\\PC_Monitoring\\PcMonitoring\\PcMonitoring.csproj",
+      "packagesPath": "C:\\Users\\turoc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\turoc\\OneDrive\\Документы\\github\\PC_Monitoring\\PcMonitoring\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\turococ\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\turoc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
