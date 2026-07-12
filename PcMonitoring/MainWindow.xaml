@@ -507,7 +507,7 @@
                                         <Run FontWeight="Bold">CPU Load:</Run>
                                         <TextBlock Text="{Binding CpuLoadText}" Foreground="{DynamicResource TextPrimary}"/>
                                         </TextBlock>
-                                        <lvc:CartesianChart Series="{Binding CpuSeries}" Width="1000" Height="150"/>
+                                        <lvc:CartesianChart Series="{Binding CpuSeries}" Width="500" Height="150"/>
                                     </StackPanel>
                                 </Border>
 
@@ -517,7 +517,7 @@
                                         <Run FontWeight="Bold">CPU Temperature:</Run>
                                         <TextBlock Text="{Binding CpuTempText}" Foreground="{DynamicResource TextPrimary}"/>
                                         </TextBlock>
-                                        <lvc:CartesianChart Series="{Binding CpuTempSeries}" Width="1000" Height="150"/>
+                                        <lvc:CartesianChart Series="{Binding CpuTempSeries}" Width="500" Height="150"/>
                                     </StackPanel>
                                 </Border>
 
