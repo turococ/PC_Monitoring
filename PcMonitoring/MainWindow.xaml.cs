@@ -1,6 +1,4 @@
 ﻿global using WinForms = System.Windows.Forms;
-global using WinMedia = System.Windows.Media;
-global using WpfApp = System.Windows.Application;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -8,7 +6,6 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using PcMonitoring.ViewModel;
-using System.Windows.Threading;
 
 namespace PcMonitoring
 {
@@ -27,7 +24,11 @@ namespace PcMonitoring
             _viewModel = new MainViewModel(ShowWindowsNotification);
             _settingsViewModel = new SettingsViewModel();
             _historyViewModel = new HistoryViewModel(_viewModel.Database);
-            DataContext = _viewModel;
+
+            if (WelcomeScreen != null) WelcomeScreen.DataContext = _viewModel;
+            if (HistoryScreen != null) HistoryScreen.DataContext = _historyViewModel;
+            if (SettingsScreen != null) SettingsScreen.DataContext = _viewModel;
+
             ShowWelcome();
             InitializeTrayIcon();
             SizeChanged += (s, e) => UpdateClip();
@@ -122,12 +123,15 @@ namespace PcMonitoring
             ShowSpecs();
         }
 
-        private void History_Click(object sender, RoutedEventArgs e)
+        private async void History_Click(object sender, RoutedEventArgs e)
         {
-            _historyViewModel?.LoadData();
-            DataContext = _historyViewModel;
             SetActiveButton(HistoryBtn);
             ShowHistory();
+
+            if (_historyViewModel != null)
+            {
+                await _historyViewModel.LoadDataAsync();
+            }
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)

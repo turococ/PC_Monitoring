@@ -1,7 +1,6 @@
 ﻿using HardwareMonitor.Hardware;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.WPF;
 using LiveChartsCore.SkiaSharpView.Painting;
 using PcMonitoring.Data;
 using SkiaSharp;

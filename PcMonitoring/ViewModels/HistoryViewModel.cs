@@ -1,6 +1,4 @@
 using PcMonitoring.Data;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -33,7 +31,7 @@ namespace PcMonitoring.ViewModel
                 {
                     _selectedPeriod = value;
                     OnPropertyChanged();
-                    LoadData();
+                    _ = LoadDataAsync();
                 }
             }
         }
@@ -45,10 +43,10 @@ namespace PcMonitoring.ViewModel
         public HistoryViewModel(MetricsDatabase database)
         {
             _database = database;
-            LoadData();
+            _ = LoadDataAsync();
         }
 
-        public void LoadData()
+        public async Task LoadDataAsync()
         {
             var timeRange = SelectedPeriod switch
             {
@@ -59,34 +57,54 @@ namespace PcMonitoring.ViewModel
                 _ => TimeSpan.FromHours(1)
             };
 
-            var metrics = _database.GetMetrics(timeRange);
-            if (metrics.Count == 0)
+            try
             {
-                CpuLoadStats = "Нет данных";
-                CpuTempStats = "Нет данных";
-                GpuTempStats = "Нет данных";
-                RamStats = "Нет данных";
+                var DataPackage = await Task.Run(() =>
+                {
+                    var metrics = _database.GetMetrics(timeRange);
+                    if (metrics.Count == 0)
+                        return null;
+
+                    return new
+                    {
+                        MetricsCount = metrics.Count,
+                        CpuLoad = _database.GetStats("CpuLoad", timeRange),
+                        CpuTemp = _database.GetStats("CpuTemp", timeRange),
+                        GpuTemp = _database.GetStats("GpuTemp", timeRange),
+                        Ram = _database.GetStats("RamUsedPercent", timeRange),
+                        Recent = _database.GetRecentMetrics(20)
+                    };
+                });
+
+                if (DataPackage == null)
+                {
+                    SetEmptyStats("нет данных");
+                    return;
+                }
+
+                CpuLoadStats = FormatStats(DataPackage.CpuLoad, "%");
+                CpuTempStats = FormatStats(DataPackage.CpuTemp, "°C");
+                GpuTempStats = FormatStats(DataPackage.GpuTemp, "°C");
+                RamStats = FormatStats(DataPackage.Ram, "%");
+
                 RecentRecords.Clear();
-                return;
+                foreach (var m in DataPackage.Recent)
+                    RecentRecords.Add(m);
             }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[DB Error] Ошибка загрузки истории: {ex.Message}");
+                SetEmptyStats("Ошибка БД");
+            }
+        }
 
-            var cpuLoad = _database.GetStats("CpuLoad", timeRange);
-            CpuLoadStats = FormatStats(cpuLoad, "%");
-
-            var cpuTemp = _database.GetStats("CpuTemp", timeRange);
-            CpuTempStats = FormatStats(cpuTemp, "°C");
-
-            var gpuTemp = _database.GetStats("GpuTemp", timeRange);
-            GpuTempStats = FormatStats(gpuTemp, "°C");
-
-            var ram = _database.GetStats("RamUsedPercent", timeRange);
-            RamStats = FormatStats(ram, "%");
-
-            // Последние 20 записей
-            var recent = _database.GetRecentMetrics(20);
+        private void SetEmptyStats(string message)
+        {
+            CpuLoadStats = message;
+            CpuTempStats = message;
+            GpuTempStats = message;
+            RamStats = message;
             RecentRecords.Clear();
-            foreach (var m in recent)
-                RecentRecords.Add(m);
         }
 
         private static string FormatStats((float min, float max, float avg) stats, string unit)
